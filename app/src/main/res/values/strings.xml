@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyNotes</string>
+
+    <string name="db_drop">DROP TABLE IF EXISTS</string>
+</resources>
