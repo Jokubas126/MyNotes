@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
-import com.example.mynotes.model.util.DBUtility;
+import com.example.mynotes.model.util.DBUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +19,22 @@ import static android.content.ContentValues.TAG;
 public class DBHandler extends SQLiteOpenHelper {
 
     public DBHandler(Context context) {
-        super(context, DBUtility.DATABASE_NAME, null, DBUtility.DATABASE_VERSION);
+        super(context, DBUtil.DATABASE_NAME, null, DBUtil.DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_NOTE_TABLE = "CREATE TABLE " + DBUtility.TABLE_NAME + "("
-                + DBUtility.KEY_ID + " INTEGER PRIMARY KEY,"
-                + DBUtility.KEY_TITLE + " TEXT,"
-                + DBUtility.KEY_TEXT + " TEXT" + ")";
+        String CREATE_NOTE_TABLE = "CREATE TABLE " + DBUtil.TABLE_NAME + "("
+                + DBUtil.KEY_ID + " INTEGER PRIMARY KEY,"
+                + DBUtil.KEY_TITLE + " TEXT,"
+                + DBUtil.KEY_TEXT + " TEXT" + ")";
         db.execSQL(CREATE_NOTE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String DROP_TABLE = String.valueOf(R.string.db_drop);
-        db.execSQL(DROP_TABLE, new String[]{DBUtility.DATABASE_NAME});
+        db.execSQL(DROP_TABLE, new String[]{DBUtil.DATABASE_NAME});
         onCreate(db);
     }
 
@@ -44,10 +44,10 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DBUtility.KEY_TITLE, note.getTitle());
-        values.put(DBUtility.KEY_TEXT, note.getText());
+        values.put(DBUtil.KEY_TITLE, note.getTitle());
+        values.put(DBUtil.KEY_TEXT, note.getText());
 
-        db.insert(DBUtility.TABLE_NAME, null, values);
+        db.insert(DBUtil.TABLE_NAME, null, values);
         Log.d(TAG, "addNote: note added to the database" );
         db.close();
     }
@@ -55,9 +55,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public Note getNote(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(DBUtility.TABLE_NAME,
-                new String[]{DBUtility.KEY_ID, DBUtility.KEY_TITLE, DBUtility.KEY_TEXT},
-                DBUtility.KEY_ID + "=?", new String[]{String.valueOf(id)},
+        Cursor cursor = db.query(DBUtil.TABLE_NAME,
+                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT},
+                DBUtil.KEY_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -72,7 +72,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Note> list = new ArrayList<>();
 
-        String selectAll = "SELECT * FROM " + DBUtility.TABLE_NAME;
+        String selectAll = "SELECT * FROM " + DBUtil.TABLE_NAME;
 
         Cursor cursor = db.rawQuery(selectAll, null);
 
@@ -92,21 +92,21 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DBUtility.KEY_TITLE, note.getTitle());
-        values.put(DBUtility.KEY_TEXT, note.getText());
+        values.put(DBUtil.KEY_TITLE, note.getTitle());
+        values.put(DBUtil.KEY_TEXT, note.getText());
 
-        return db.update(DBUtility.TABLE_NAME, values, DBUtility.KEY_ID + "=?",
+        return db.update(DBUtil.TABLE_NAME, values, DBUtil.KEY_ID + "=?",
                 new String[]{String.valueOf(note.getId())});
     }
 
     public void deleteNote(Note note){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DBUtility.TABLE_NAME, DBUtility.KEY_ID + "=?",
+        db.delete(DBUtil.TABLE_NAME, DBUtil.KEY_ID + "=?",
                 new String[]{String.valueOf(note.getId())});
     }
 
     public int getCount(){
-        String countQuery = "SELECT * FROM " + DBUtility.TABLE_NAME;
+        String countQuery = "SELECT * FROM " + DBUtil.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 

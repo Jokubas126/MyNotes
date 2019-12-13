@@ -1,8 +1,8 @@
 package com.example.mynotes.model.util;
 
-public class DBUtility {
+public class DBUtil {
 
-    private DBUtility(){}
+    private DBUtil(){}
 
     //items related to the database
     public static final int DATABASE_VERSION = 1;

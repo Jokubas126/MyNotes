@@ -1,4 +1,4 @@
-package com.example.mynotes.presenter;
+package com.example.mynotes.presenters;
 
 import android.util.Log;
 
@@ -20,7 +20,7 @@ public class NoteListActivityPresenter {
     public interface NoteListActivityView {
         void setNoteTitle(String title);
         void setNoteText(String text);
-        void addNoteTitleToListView(List<String> titleList);
+        void addNoteTitleToListView(List<Note> titleList);
     }
 
     public void addNote(String title, String text){
@@ -37,17 +37,18 @@ public class NoteListActivityPresenter {
 
     public void loadNote(int index){
         Note note = handler.getNote(index);
-        view.setNoteTitle(note.getTitle());
-        view.setNoteText(note.getText());
+        Log.d("NoteListPresenter", "loadNote: " + note.getTitle() + " " + note.getText() + "IT WORKS!");
+        //view.setNoteTitle(note.getTitle());
+        //view.setNoteText(note.getText());
     }
 
     public void loadAllNotes(){
-        List<String> noteTitleList = new ArrayList<>();
+        List<Note> noteTitleList = new ArrayList<>();
 
         List<Note> noteList = handler.getNoteList();
         for(Note note : noteList){
             Log.d("NoteListPresenter", "onLoadNotes " + note.getId() + " "  + note.getTitle() + " " + note.getText());
-            noteTitleList.add(note.getTitle());
+            noteTitleList.add(note);
         }
         //add to our listview
         view.addNoteTitleToListView(noteTitleList);
