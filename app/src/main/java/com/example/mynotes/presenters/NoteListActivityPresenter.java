@@ -31,9 +31,7 @@ public class NoteListActivityPresenter {
         handler.deleteNote(handler.getNote(index));
     }
 
-    public void updateNote(int index){
-        handler.updateNote(handler.getNote(index));
-    }
+
 
     public void loadNote(int index){
         Note note = handler.getNote(index);
