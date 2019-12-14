@@ -1,16 +1,21 @@
 package com.example.mynotes.presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import com.example.mynotes.model.data.Note;
+import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.view.DisplayNoteActivity;
 
 public class DisplayNoteActivityPresenter {
     private DisplayNoteActivityView view;
+    private DBHandler handler;
+    private Note note;
 
-
-    public DisplayNoteActivityPresenter(DisplayNoteActivity view) {
+    public DisplayNoteActivityPresenter(Context context, DisplayNoteActivity view) {
         this.view = view;
+        this.handler = new DBHandler(context);
     }
 
     public interface DisplayNoteActivityView{
@@ -20,14 +25,17 @@ public class DisplayNoteActivityPresenter {
     public void getInformation(Bundle extras){
         String titleString = "";
         String contentString = "";
-
+        int id;
         if (extras != null){
-            titleString = extras.getString(BundleExtraUtil.NOTE_TITLE_TEXT);
-            contentString = extras.getString(BundleExtraUtil.NOTE_CONTENT_TEXT);
+            id = extras.getInt(BundleExtraUtil.KEY_NOTE_ID);
+            note = handler.getNote(id);
+            titleString = note.getTitle();
+            contentString = note.getContent();
         }
         view.displayInformation(titleString, contentString);
     }
 
-
-
+    public int getNoteId() {
+        return note.getId();
+    }
 }

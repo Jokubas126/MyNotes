@@ -20,7 +20,7 @@ public class NoteListActivityPresenter {
 
     public interface NoteListActivityView {
         void addNoteToListView(List<Note> titleList);
-        void goToDisplayNoteActivity(String titleText, String contentText);
+        void goToDisplayNoteActivity(int id);
     }
 
     public void addNote(String title, String text){
@@ -33,7 +33,7 @@ public class NoteListActivityPresenter {
 
     public void loadNote(int index){
         Note note = handler.getNote(index);
-        Log.d("NoteListPresenter", "loadNote: " + note.getTitle() + " " + note.getText() + "IT WORKS!");
+        Log.d("NoteListPresenter", "loadNote: " + note.getTitle() + " " + note.getContent() + "IT WORKS!");
         //view.setNoteTitle(note.getTitle());
         //view.setNoteText(note.getText());
     }
@@ -43,16 +43,16 @@ public class NoteListActivityPresenter {
 
         List<Note> noteList = handler.getNoteList();
         for(Note note : noteList){
-            Log.d("NoteListPresenter", "onLoadNotes " + note.getId() + " "  + note.getTitle() + " " + note.getText());
+            Log.d("NoteListPresenter", "onLoadNotes " + note.getId() + " "  + note.getTitle() + " " + note.getContent());
             noteTitleList.add(note);
         }
         //add to our listview
         view.addNoteToListView(noteTitleList);
     }
 
-    public void onNoteClicked(String title, String content){
-        if (title != null && content != null){
-            view.goToDisplayNoteActivity(title, content);
+    public void onNoteClicked(int id){
+        if (handler.getNote(id) != null){
+            view.goToDisplayNoteActivity(id);
         }
     }
 }

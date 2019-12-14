@@ -10,7 +10,6 @@ import android.os.Bundle;
 import com.example.mynotes.R;
 import com.example.mynotes.adapters.RecyclerViewAdapter;
 import com.example.mynotes.model.data.Note;
-import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.NoteListActivityPresenter;
 
@@ -45,10 +44,9 @@ public class NoteListActivity extends AppCompatActivity
     }
 
     @Override
-    public void goToDisplayNoteActivity(String titleText, String contentText) {
+    public void goToDisplayNoteActivity(int id) {
         Intent intent = new Intent(this, DisplayNoteActivity.class);
-        intent.putExtra(BundleExtraUtil.NOTE_TITLE_TEXT, titleText);
-        intent.putExtra(BundleExtraUtil.NOTE_CONTENT_TEXT, contentText);
+        intent.putExtra(BundleExtraUtil.KEY_NOTE_ID, id);
         startActivity(intent);
     }
 }

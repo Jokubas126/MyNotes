@@ -2,15 +2,18 @@ package com.example.mynotes.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.mynotes.R;
+import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.EditNoteActivityPresenter;
 
 public class EditNoteActivity extends AppCompatActivity
-        implements EditNoteActivityPresenter.EditNoteActivityView {
+        implements EditNoteActivityPresenter.EditNoteActivityView, View.OnClickListener {
 
     private EditNoteActivityPresenter presenter;
 
@@ -27,6 +30,8 @@ public class EditNoteActivity extends AppCompatActivity
         contentEditText = findViewById(R.id.content_edit_text);
         confirmButton = findViewById(R.id.confirm_button);
 
+        confirmButton.setOnClickListener(this);
+
         presenter = new EditNoteActivityPresenter(this, this);
         presenter.getInformation(getIntent().getExtras());
     }
@@ -38,7 +43,17 @@ public class EditNoteActivity extends AppCompatActivity
     }
 
     @Override
-    public void updateText() {
+    public void goToDisplayActivity(int id) {
+        Intent intent = new Intent(this, DisplayNoteActivity.class);
+        intent.putExtra(BundleExtraUtil.KEY_NOTE_ID, id);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onClick(View v) {
+        presenter.updateNote(
+                titleEditText.getText().toString().trim(),
+                contentEditText.getText().toString().trim()
+        );
     }
 }

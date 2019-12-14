@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mynotes.R;
@@ -16,6 +18,7 @@ public class DisplayNoteActivity extends AppCompatActivity
 
     TextView contentTextView;
     TextView titleTextView;
+    ImageButton backButton;
 
     DisplayNoteActivityPresenter presenter;
 
@@ -24,10 +27,13 @@ public class DisplayNoteActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_note);
 
-        presenter = new DisplayNoteActivityPresenter(this);
+        presenter = new DisplayNoteActivityPresenter(this, this);
 
         titleTextView = findViewById(R.id.title_text_view);
         contentTextView = findViewById(R.id.content_text_view);
+        backButton = findViewById(R.id.back_button);
+
+        backButton.setOnClickListener(this);
         titleTextView.setOnClickListener(this);
         contentTextView.setOnClickListener(this);
 
@@ -42,9 +48,25 @@ public class DisplayNoteActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.title_text_view:
+                goToEditNoteActivity();
+                break;
+
+            case R.id.content_text_view:
+                goToEditNoteActivity();
+                break;
+
+            case R.id.back_button:
+                startActivity(new Intent(this, NoteListActivity.class));
+                break;
+
+        }
+    }
+
+    private void goToEditNoteActivity(){
         Intent intent = new Intent(this, EditNoteActivity.class);
-        intent.putExtra(BundleExtraUtil.NOTE_TITLE_TEXT, titleTextView.getText());
-        intent.putExtra(BundleExtraUtil.NOTE_CONTENT_TEXT, contentTextView.getText());
+        intent.putExtra(BundleExtraUtil.KEY_NOTE_ID, presenter.getNoteId());
         startActivity(intent);
     }
 }

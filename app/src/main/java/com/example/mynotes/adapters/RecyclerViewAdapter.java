@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = noteList.get(position);
         holder.titleTextView.setText(note.getTitle());
-        holder.contentTextView.setText(note.getText());
+        holder.contentTextView.setText(note.getContent());
     }
 
     @Override
@@ -62,9 +62,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            String title = noteList.get(position).getTitle();
-            String content = noteList.get(position).getText();
-            presenter.onNoteClicked(title, content);
+            int id = noteList.get(position).getId();
+            presenter.onNoteClicked(id);
         }
     }
 }

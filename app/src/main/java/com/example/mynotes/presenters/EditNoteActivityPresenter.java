@@ -3,6 +3,7 @@ package com.example.mynotes.presenters;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.mynotes.model.data.Note;
 import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
 
@@ -10,6 +11,7 @@ public class EditNoteActivityPresenter {
 
     private EditNoteActivityView view;
     private DBHandler handler;
+    private int noteIndex;
 
     public EditNoteActivityPresenter(Context context, EditNoteActivityView view) {
         this.view = view;
@@ -18,7 +20,7 @@ public class EditNoteActivityPresenter {
 
     public interface EditNoteActivityView{
         void displayInformation(String title, String content);
-        void updateText();
+        void goToDisplayActivity(int id);
     }
 
     public void getInformation(Bundle extras){
@@ -26,13 +28,20 @@ public class EditNoteActivityPresenter {
         String contentString = "";
 
         if (extras != null){
-            titleString = extras.getString(BundleExtraUtil.NOTE_TITLE_TEXT);
-            contentString = extras.getString(BundleExtraUtil.NOTE_CONTENT_TEXT);
+            noteIndex = extras.getInt(BundleExtraUtil.KEY_NOTE_ID);
+            Note note = handler.getNote(noteIndex);
+            titleString = note.getTitle();
+            contentString = note.getContent();
         }
         view.displayInformation(titleString, contentString);
     }
 
-    public void updateNote(int index){
-        handler.updateNote(handler.getNote(index));
+    public void updateNote(String newTitle, String newContent){
+
+        Note note = handler.getNote(noteIndex);
+        note.setTitle(newTitle);
+        note.setText(newContent);
+        handler.updateNote(note);
+        view.goToDisplayActivity(note.getId());
     }
 }

@@ -45,7 +45,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(DBUtil.KEY_TITLE, note.getTitle());
-        values.put(DBUtil.KEY_TEXT, note.getText());
+        values.put(DBUtil.KEY_TEXT, note.getContent());
 
         db.insert(DBUtil.TABLE_NAME, null, values);
         Log.d(TAG, "addNote: note added to the database" );
@@ -93,7 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(DBUtil.KEY_TITLE, note.getTitle());
-        values.put(DBUtil.KEY_TEXT, note.getText());
+        values.put(DBUtil.KEY_TEXT, note.getContent());
 
         return db.update(DBUtil.TABLE_NAME, values, DBUtil.KEY_ID + "=?",
                 new String[]{String.valueOf(note.getId())});
