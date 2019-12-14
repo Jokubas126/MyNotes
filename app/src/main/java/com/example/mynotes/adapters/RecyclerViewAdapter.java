@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
-import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.presenters.NoteListActivityPresenter;
 
 import java.util.List;

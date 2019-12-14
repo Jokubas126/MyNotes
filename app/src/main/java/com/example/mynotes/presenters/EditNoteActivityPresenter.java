@@ -1,20 +1,24 @@
 package com.example.mynotes.presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
-import com.example.mynotes.view.DisplayNoteActivity;
 
-public class DisplayNoteActivityPresenter {
-    private DisplayNoteActivityView view;
+public class EditNoteActivityPresenter {
 
+    private EditNoteActivityView view;
+    private DBHandler handler;
 
-    public DisplayNoteActivityPresenter(DisplayNoteActivity view) {
+    public EditNoteActivityPresenter(Context context, EditNoteActivityView view) {
         this.view = view;
+        handler = new DBHandler(context);
     }
 
-    public interface DisplayNoteActivityView{
+    public interface EditNoteActivityView{
         void displayInformation(String title, String content);
+        void updateText();
     }
 
     public void getInformation(Bundle extras){
@@ -28,6 +32,7 @@ public class DisplayNoteActivityPresenter {
         view.displayInformation(titleString, contentString);
     }
 
-
-
+    public void updateNote(int index){
+        handler.updateNote(handler.getNote(index));
+    }
 }

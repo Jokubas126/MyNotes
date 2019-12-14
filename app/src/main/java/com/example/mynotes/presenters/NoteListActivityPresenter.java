@@ -1,5 +1,6 @@
 package com.example.mynotes.presenters;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.mynotes.model.data.Note;
@@ -12,14 +13,12 @@ public class NoteListActivityPresenter {
     private NoteListActivityView view;
     private DBHandler handler;
 
-    public NoteListActivityPresenter(NoteListActivityView view, DBHandler dbHandler) {
+    public NoteListActivityPresenter(Context context, NoteListActivityView view) {
         this.view = view;
-        this.handler = dbHandler;
+        this.handler = new DBHandler(context);
     }
 
     public interface NoteListActivityView {
-        void setNoteTitle(String title);
-        void setNoteText(String text);
         void addNoteToListView(List<Note> titleList);
         void goToDisplayNoteActivity(String titleText, String contentText);
     }

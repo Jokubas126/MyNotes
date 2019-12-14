@@ -33,16 +33,9 @@ public class NoteListActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        presenter = new NoteListActivityPresenter(
-                this, new DBHandler(NoteListActivity.this));
+        presenter = new NoteListActivityPresenter(this, this);
         presenter.loadAllNotes();
     }
-
-    @Override
-    public void setNoteTitle(String title){}
-
-    @Override
-    public void setNoteText(String text){}
 
     @Override
     public void addNoteToListView(final List<Note> noteList) {
