@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
+import com.example.mynotes.model.handlers.DBHandler;
+import com.example.mynotes.presenters.NoteListActivityPresenter;
 
 import java.util.List;
 
@@ -18,10 +20,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context context;
     private List<Note> noteList;
+    NoteListActivityPresenter presenter;
 
-    public RecyclerViewAdapter(Context context, List<Note> noteList) {
+    public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
         this.context = context;
         this.noteList = noteList;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -44,15 +48,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return noteList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView titleTextView;
         public TextView contentTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            String title = noteList.get(position).getTitle();
+            String content = noteList.get(position).getText();
+            presenter.onNoteClicked(title, content);
         }
     }
 }

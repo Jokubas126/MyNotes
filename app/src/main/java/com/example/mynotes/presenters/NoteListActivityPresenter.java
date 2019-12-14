@@ -20,7 +20,8 @@ public class NoteListActivityPresenter {
     public interface NoteListActivityView {
         void setNoteTitle(String title);
         void setNoteText(String text);
-        void addNoteTitleToListView(List<Note> titleList);
+        void addNoteToListView(List<Note> titleList);
+        void goToDisplayNoteActivity(String titleText, String contentText);
     }
 
     public void addNote(String title, String text){
@@ -30,8 +31,6 @@ public class NoteListActivityPresenter {
     public void deleteNote(int index){
         handler.deleteNote(handler.getNote(index));
     }
-
-
 
     public void loadNote(int index){
         Note note = handler.getNote(index);
@@ -49,6 +48,12 @@ public class NoteListActivityPresenter {
             noteTitleList.add(note);
         }
         //add to our listview
-        view.addNoteTitleToListView(noteTitleList);
+        view.addNoteToListView(noteTitleList);
+    }
+
+    public void onNoteClicked(String title, String content){
+        if (title != null && content != null){
+            view.goToDisplayNoteActivity(title, content);
+        }
     }
 }
