@@ -1,4 +1,4 @@
-package com.example.mynotes.view;
+package com.example.mynotes.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +13,7 @@ import com.example.mynotes.adapters.RecyclerViewAdapter;
 import com.example.mynotes.model.data.Note;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.NoteListActivityPresenter;
+import com.example.mynotes.view.StyleSetup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class NoteListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list_view);
+        new StyleSetup(this, getSupportActionBar());
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

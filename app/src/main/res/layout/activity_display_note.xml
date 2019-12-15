@@ -5,12 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".view.DisplayNoteActivity">
+    tools:context=".view.activities.DisplayNoteActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/colorLightBackground">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_alignParentStart="true"
+                android:background="@null"
+                android:src="@android:drawable/ic_menu_revert" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/back_button"
+                android:text="Note"
+                android:textSize="20sp"
+                android:textColor="@color/colorItemTitleText"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/top_card_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Test text"
@@ -26,12 +61,5 @@
         android:text="Test text"
         android:textColor="@android:color/white"
         android:textSize="16sp"/>
-
-    <ImageButton
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:src="@android:drawable/ic_menu_revert" />
 
 </RelativeLayout>

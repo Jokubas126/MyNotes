@@ -1,17 +1,17 @@
-package com.example.mynotes.view;
+package com.example.mynotes.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.DisplayNoteActivityPresenter;
+import com.example.mynotes.view.StyleSetup;
 
 public class DisplayNoteActivity extends AppCompatActivity
         implements DisplayNoteActivityPresenter.DisplayNoteActivityView, View.OnClickListener {
@@ -26,6 +26,7 @@ public class DisplayNoteActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_note);
+        new StyleSetup(this, getSupportActionBar());
 
         presenter = new DisplayNoteActivityPresenter(this, this);
 

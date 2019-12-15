@@ -7,25 +7,52 @@
     android:background="@color/colorBackground"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.EditNoteActivity">
+    tools:context=".view.activities.EditNoteActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/colorLightBackground">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="Edit note"
+                android:textSize="20sp"
+                android:textColor="@color/colorItemTitleText"/>
+
+            <ImageButton
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+
+                android:background="@null"
+                android:src="@drawable/confirm_icon" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/title_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/top_card_view"
         android:backgroundTint="@color/colorEditTextUnderLine"
         android:hint="@string/title_edit_text_hint"
         android:textColorHint="@color/colorHintText"
         android:textColor="@android:color/white"
         android:textSize="24sp"/>
-
-    <ImageButton
-        android:id="@+id/confirm_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:src="@android:drawable/checkbox_on_background" />
 
     <EditText
         android:id="@+id/content_edit_text"

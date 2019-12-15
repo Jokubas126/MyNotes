@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackground">#1D1D1D</color>
+    <color name="colorBackground">#111111</color>
+    <color name="colorLightBackground">#2E2E2E</color>
     <color name="colorFloatingButton">#CECECE</color>
     <color name="colorItem">#474747</color>
     <color name="colorItemTitleText">#FFFFFF</color>

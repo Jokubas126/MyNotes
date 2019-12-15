@@ -1,4 +1,4 @@
-package com.example.mynotes.view;
+package com.example.mynotes.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.example.mynotes.R;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.EditNoteActivityPresenter;
+import com.example.mynotes.view.StyleSetup;
 
 public class EditNoteActivity extends AppCompatActivity
         implements EditNoteActivityPresenter.EditNoteActivityView, View.OnClickListener {
@@ -25,6 +26,7 @@ public class EditNoteActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
+        new StyleSetup(this, getSupportActionBar());
 
         titleEditText = findViewById(R.id.title_edit_text);
         contentEditText = findViewById(R.id.content_edit_text);

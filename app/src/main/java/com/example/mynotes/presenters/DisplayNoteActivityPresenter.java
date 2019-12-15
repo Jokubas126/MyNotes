@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.example.mynotes.model.data.Note;
 import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
-import com.example.mynotes.view.DisplayNoteActivity;
+import com.example.mynotes.view.activities.DisplayNoteActivity;
 
 public class DisplayNoteActivityPresenter {
     private DisplayNoteActivityView view;
