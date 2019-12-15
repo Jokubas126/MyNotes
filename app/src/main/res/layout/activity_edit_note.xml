@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".view.EditNoteActivity">
@@ -13,8 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorEditTextUnderLine"
         android:hint="@string/title_edit_text_hint"
-        android:textSize="30sp"/>
+        android:textColorHint="@color/colorHintText"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"/>
 
     <ImageButton
         android:id="@+id/confirm_button"
@@ -30,10 +34,13 @@
         android:layout_below="@id/title_edit_text"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/colorEditTextUnderLine"
         android:hint="@string/content_edit_text_hint"
+        android:textColorHint="@color/colorHintText"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:textColor="@android:color/white"
         android:textSize="16sp"/>
 
 </RelativeLayout>
