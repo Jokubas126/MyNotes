@@ -2,4 +2,7 @@
     <string name="app_name">MyNotes</string>
 
     <string name="db_drop">DROP TABLE IF EXISTS</string>
+    <string name="title_edit_text_hint">Enter the title</string>
+    <string name="content_edit_text_hint">Write your note here</string>
+
 </resources>

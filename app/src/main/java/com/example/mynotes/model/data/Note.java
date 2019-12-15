@@ -39,7 +39,7 @@ public class Note {
         return content;
     }
 
-    public void setText(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 }

@@ -23,19 +23,8 @@ public class NoteListActivityPresenter {
         void goToDisplayNoteActivity(int id);
     }
 
-    public void addNote(String title, String text){
-        handler.addNote(new Note(title, text));
-    }
-
     public void deleteNote(int index){
         handler.deleteNote(handler.getNote(index));
-    }
-
-    public void loadNote(int index){
-        Note note = handler.getNote(index);
-        Log.d("NoteListPresenter", "loadNote: " + note.getTitle() + " " + note.getContent() + "IT WORKS!");
-        //view.setNoteTitle(note.getTitle());
-        //view.setNoteText(note.getText());
     }
 
     public void loadAllNotes(){

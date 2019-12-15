@@ -50,8 +50,13 @@ public class EditNoteActivity extends AppCompatActivity
     }
 
     @Override
+    public void goToNoteListActivity() {
+        startActivity(new Intent(this, NoteListActivity.class));
+    }
+
+    @Override
     public void onClick(View v) {
-        presenter.updateNote(
+        presenter.confirmNote(
                 titleEditText.getText().toString().trim(),
                 contentEditText.getText().toString().trim()
         );

@@ -21,6 +21,7 @@ public class EditNoteActivityPresenter {
     public interface EditNoteActivityView{
         void displayInformation(String title, String content);
         void goToDisplayActivity(int id);
+        void goToNoteListActivity();
     }
 
     public void getInformation(Bundle extras){
@@ -36,12 +37,19 @@ public class EditNoteActivityPresenter {
         view.displayInformation(titleString, contentString);
     }
 
-    public void updateNote(String newTitle, String newContent){
-
-        Note note = handler.getNote(noteIndex);
-        note.setTitle(newTitle);
-        note.setText(newContent);
-        handler.updateNote(note);
-        view.goToDisplayActivity(note.getId());
+    public void confirmNote(String newTitle, String newContent){
+        if (noteIndex != 0){
+            Note note = handler.getNote(noteIndex);
+            note.setTitle(newTitle);
+            note.setContent(newContent);
+            handler.updateNote(note);
+            view.goToDisplayActivity(note.getId());
+        } else {
+            Note note = new Note();
+            note.setTitle(newTitle);
+            note.setContent(newContent);
+            handler.addNote(note);
+            view.goToNoteListActivity();
+        }
     }
 }
