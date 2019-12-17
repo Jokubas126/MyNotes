@@ -5,6 +5,7 @@ public class Note {
     private int id;
     private String title;
     private String content;
+    private boolean checked;
 
     public Note(){}
 
@@ -23,9 +24,7 @@ public class Note {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getTitle() {
         return title;
@@ -41,5 +40,13 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

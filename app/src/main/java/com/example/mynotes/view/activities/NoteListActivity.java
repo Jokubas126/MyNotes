@@ -26,6 +26,7 @@ public class NoteListActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RecyclerViewAdapter viewAdapter;
 
+
     private FloatingActionButton addNoteButton;
 
     @Override
