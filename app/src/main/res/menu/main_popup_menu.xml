@@ -6,6 +6,10 @@
         android:title="@string/popup_select_notes" />
 
     <item
+        android:id="@+id/select_all_notes_button"
+        android:title="@string/popup_select_all_notes" />
+
+    <item
         android:id="@+id/delete_notes_button"
         android:title="@string/popup_delete_notes" />
 

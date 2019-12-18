@@ -110,7 +110,13 @@ public class NoteListActivity extends AppCompatActivity
                 return true;
 
             case R.id.select_notes_button:
-                viewAdapter.changeVisibility();
+                viewAdapter.changeCheckboxVisibility(R.id.select_notes_button);
+                presenter.loadAllNotes();
+                return true;
+
+            case R.id.select_all_notes_button:
+                viewAdapter.changeCheckboxVisibility(R.id.select_all_notes_button);
+                viewAdapter.setAllNotesChecked();
                 presenter.loadAllNotes();
                 return true;
         }

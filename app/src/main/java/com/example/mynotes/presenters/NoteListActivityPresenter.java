@@ -43,6 +43,8 @@ public class NoteListActivityPresenter {
         view.addNoteToListView(noteTitleList);
     }
 
+
+
     public void onNoteClicked(int id){
         if (handler.getNote(id) != null){
             view.goToDisplayNoteActivity(id);

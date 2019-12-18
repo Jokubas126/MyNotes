@@ -24,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private NoteListActivityPresenter presenter;
     private CheckBox checkBox;
     private static int checkboxVisibility = View.GONE;
+    private static boolean checkboxChecked = false;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
         this.context = context;
@@ -53,15 +54,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public void changeVisibility(){
-        if (checkBox.getVisibility() == View.VISIBLE){
+    public void changeCheckboxVisibility(int id){
+        if (checkBox.getVisibility() == View.VISIBLE && id == R.id.select_notes_button){
+            checkboxChecked = false;
             checkboxVisibility = View.GONE;
-            checkBox.setVisibility(View.GONE);
         } else{
             checkboxVisibility = View.VISIBLE;
-            checkBox.setVisibility(View.VISIBLE);
         }
+    }
 
+    public void setAllNotesChecked(){
+        for (Note note : noteList){
+            note.setChecked(!note.isChecked());
+        }
+        checkboxChecked = !checkboxChecked;
+        checkBox.setChecked(checkboxChecked);
     }
 
     @Override
@@ -90,20 +97,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             contentTextView = itemView.findViewById(R.id.content_text);
             checkBox = itemView.findViewById(R.id.item_checkbox);
             checkBox.setVisibility(checkboxVisibility);
+            checkBox.setChecked(checkboxChecked);
             checkBox.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            if (noteList.get(position).isChecked()){
-                noteList.get(position).setChecked(false);
-                Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
-            }
-            else {
-                noteList.get(position).setChecked(true);
-                Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
-            }
+            noteList.get(position).setChecked(!noteList.get(position).isChecked());
         }
     }
 }
