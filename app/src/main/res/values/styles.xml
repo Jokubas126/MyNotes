@@ -5,6 +5,22 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorAccent">@color/colorFloatingButton</item>
+
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/colorLightBackground</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">@color/colorItemTitleText</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/colorItemTitleText</item>
     </style>
 
 </resources>
