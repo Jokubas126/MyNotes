@@ -1,5 +1,8 @@
 package com.example.mynotes.model.data;
 
+import android.view.View;
+import android.widget.CheckBox;
+
 public class Note {
 
     private int id;

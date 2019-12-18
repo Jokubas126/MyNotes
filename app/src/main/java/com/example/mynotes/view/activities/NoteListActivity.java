@@ -6,7 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 import com.example.mynotes.R;
 import com.example.mynotes.adapters.RecyclerViewAdapter;
@@ -19,15 +25,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity
-        implements NoteListActivityPresenter.NoteListActivityView, View.OnClickListener {
+        implements NoteListActivityPresenter.NoteListActivityView, View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
     private NoteListActivityPresenter presenter;
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter viewAdapter;
 
-
     private FloatingActionButton addNoteButton;
+    private ImageButton menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,9 @@ public class NoteListActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         addNoteButton = findViewById(R.id.add_note_floating_button);
+        menuButton = findViewById(R.id.menu_button);
         addNoteButton.setOnClickListener(this);
+        menuButton.setOnClickListener(this);
 
         presenter = new NoteListActivityPresenter(this, this);
         presenter.loadAllNotes();
@@ -62,6 +70,28 @@ public class NoteListActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(this, EditNoteActivity.class));
+        switch(v.getId()){
+            case R.id.add_note_floating_button:
+                startActivity(new Intent(this, EditNoteActivity.class));
+                break;
+
+            case R.id.menu_button:
+                showPopupMenu(v);
+                break;
+        }
+    }
+
+    private void showPopupMenu(View v){
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.main_popup_menu, popup.getMenu());
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        //should change the visibility of the checkboxes
+        return false;
     }
 }

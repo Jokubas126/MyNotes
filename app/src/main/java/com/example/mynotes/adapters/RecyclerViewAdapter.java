@@ -22,7 +22,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private List<Note> noteList;
     NoteListActivityPresenter presenter;
-    private CheckBox checkBox;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
         this.context = context;
@@ -60,8 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(this);
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
-            checkBox = itemView.findViewById(R.id.item_checkbox);
-            checkBox.setOnClickListener(this);
         }
 
         @Override
@@ -82,10 +79,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         noteList.get(position).setChecked(true);
                         Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
                     }
-
                     break;
             }
-
         }
     }
 }
