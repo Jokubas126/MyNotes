@@ -108,6 +108,11 @@ public class NoteListActivity extends AppCompatActivity
                 viewAdapter.deleteNotes();
                 presenter.loadAllNotes(); // for updating the list
                 return true;
+
+            case R.id.select_notes_button:
+                viewAdapter.changeVisibility();
+                presenter.loadAllNotes();
+                return true;
         }
         return false;
     }

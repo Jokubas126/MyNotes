@@ -21,8 +21,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context context;
     private List<Note> noteList;
-    NoteListActivityPresenter presenter;
-    public CheckBox checkBox;
+    private NoteListActivityPresenter presenter;
+    private CheckBox checkBox;
+    private static int checkboxVisibility = View.GONE;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
         this.context = context;
@@ -52,6 +53,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+    public void changeVisibility(){
+        if (checkBox.getVisibility() == View.VISIBLE){
+            checkboxVisibility = View.GONE;
+            checkBox.setVisibility(View.GONE);
+        } else{
+            checkboxVisibility = View.VISIBLE;
+            checkBox.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     @Override
     public int getItemCount() {
         return noteList.size();
@@ -59,11 +71,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView titleTextView;
-        public TextView contentTextView;
+        TextView titleTextView;
+        TextView contentTextView;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,23 +89,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
             checkBox = itemView.findViewById(R.id.item_checkbox);
+            checkBox.setVisibility(checkboxVisibility);
             checkBox.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            switch (v.getId()){
-                case R.id.item_checkbox:
-                    if (noteList.get(position).isChecked()){
-                        noteList.get(position).setChecked(false);
-                        Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
-                    }
-                    else {
-                        noteList.get(position).setChecked(true);
-                        Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
-                    }
-                    break;
+            if (noteList.get(position).isChecked()){
+                noteList.get(position).setChecked(false);
+                Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
+            }
+            else {
+                noteList.get(position).setChecked(true);
+                Log.d("Checkbox", "onClick: " + noteList.get(position).getTitle() + " " + noteList.get(position).isChecked());
             }
         }
     }

@@ -5,7 +5,7 @@
     <string name="title_edit_text_hint">Enter the title</string>
     <string name="content_edit_text_hint">Write your note here</string>
 
-    <string name="popup_select_notes">Select notes</string>
-    <string name="popup_delete_notes">Delete selected notes</string>
+    <string name="popup_select_notes">Select</string>
+    <string name="popup_delete_notes">Delete selected</string>
 
 </resources>

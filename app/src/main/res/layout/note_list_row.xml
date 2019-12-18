@@ -49,7 +49,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
