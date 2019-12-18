@@ -22,6 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
     private List<Note> noteList;
     NoteListActivityPresenter presenter;
+    public CheckBox checkBox;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
         this.context = context;
@@ -54,22 +55,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView titleTextView;
         public TextView contentTextView;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    int position = getAdapterPosition();
+                    Log.d("OnNoteRowClick", "onClick: " + "row is clicked");
+                    int id = noteList.get(position).getId();
+                    presenter.onNoteClicked(id);
+                }
+            });
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
+            checkBox = itemView.findViewById(R.id.item_checkbox);
+            checkBox.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
             switch (v.getId()){
-                case R.layout.note_list_row:
-                    int id = noteList.get(position).getId();
-                    presenter.onNoteClicked(id);
-                    break;
-
                 case R.id.item_checkbox:
                     if (noteList.get(position).isChecked()){
                         noteList.get(position).setChecked(false);
