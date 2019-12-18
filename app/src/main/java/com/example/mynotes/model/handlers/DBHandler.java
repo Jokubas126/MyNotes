@@ -27,7 +27,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_NOTE_TABLE = "CREATE TABLE " + DBUtil.TABLE_NAME + "("
                 + DBUtil.KEY_ID + " INTEGER PRIMARY KEY,"
                 + DBUtil.KEY_TITLE + " TEXT,"
-                + DBUtil.KEY_TEXT + " TEXT" + ")";
+                + DBUtil.KEY_TEXT + " TEXT,"
+                + DBUtil.KEY_CHECKED + " INTEGER DEFAULT 0" + ")";
         db.execSQL(CREATE_NOTE_TABLE);
     }
 
@@ -56,7 +57,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(DBUtil.TABLE_NAME,
-                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT},
+                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT, DBUtil.KEY_CHECKED},
                 DBUtil.KEY_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
         if (cursor != null)
@@ -65,6 +66,7 @@ public class DBHandler extends SQLiteOpenHelper {
         note.setId(Integer.parseInt(cursor.getString(0)));
         note.setTitle(cursor.getString(1));
         note.setContent(cursor.getString(2));
+        note.setChecked(cursor.getInt(3) == 1);
         return note;
     }
 
@@ -82,6 +84,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 note.setId(Integer.parseInt(cursor.getString(0)));
                 note.setTitle(cursor.getString(1));
                 note.setContent(cursor.getString(2));
+                note.setChecked(cursor.getInt(3) == 1);
                 list.add(note);
             } while (cursor.moveToNext());
         }

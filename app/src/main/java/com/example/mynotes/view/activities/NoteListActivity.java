@@ -51,6 +51,17 @@ public class NoteListActivity extends AppCompatActivity
         menuButton.setOnClickListener(this);
 
         presenter = new NoteListActivityPresenter(this, this);
+
+        /*presenter.addNote("first title","first text");
+        presenter.addNote("second title","second text");
+        presenter.addNote("third title","third text");
+        presenter.addNote("fourth title","fourth text");
+        presenter.addNote("fifth title","fifth text");
+        presenter.addNote("sixth title","sixth text");
+        presenter.addNote("seventh title","seventh text");
+        presenter.addNote("eight title","eight text");
+        presenter.addNote("ninth title","ninth text");*/
+
         presenter.loadAllNotes();
     }
 
@@ -91,7 +102,13 @@ public class NoteListActivity extends AppCompatActivity
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        //should change the visibility of the checkboxes
+        //should change the visibility of the checkboxes and delete
+        switch (item.getItemId()){
+            case R.id.delete_notes_button:
+                viewAdapter.deleteNotes();
+                presenter.loadAllNotes(); // for updating the list
+                return true;
+        }
         return false;
     }
 }

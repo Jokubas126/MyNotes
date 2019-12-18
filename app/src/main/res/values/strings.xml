@@ -6,5 +6,6 @@
     <string name="content_edit_text_hint">Write your note here</string>
 
     <string name="popup_select_notes">Select notes</string>
+    <string name="popup_delete_notes">Delete selected notes</string>
 
 </resources>

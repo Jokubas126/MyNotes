@@ -27,6 +27,10 @@ public class NoteListActivityPresenter {
         handler.deleteNote(handler.getNote(index));
     }
 
+    public void addNote(String title, String content){
+        handler.addNote(new Note(title, content));
+    }
+
     public void loadAllNotes(){
         List<Note> noteTitleList = new ArrayList<>();
 

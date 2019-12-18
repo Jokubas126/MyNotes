@@ -45,6 +45,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.contentTextView.setText(note.getContent());
     }
 
+    public void deleteNotes(){
+        for(Note note : noteList){
+            if (note.isChecked())
+                presenter.deleteNote(note.getId());
+        }
+    }
+
     @Override
     public int getItemCount() {
         return noteList.size();
