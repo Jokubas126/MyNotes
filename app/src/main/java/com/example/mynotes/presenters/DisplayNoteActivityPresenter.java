@@ -1,6 +1,7 @@
 package com.example.mynotes.presenters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.example.mynotes.model.data.Note;
@@ -19,7 +20,7 @@ public class DisplayNoteActivityPresenter {
     }
 
     public interface DisplayNoteActivityView{
-        void displayInformation(String title, String content);
+        void displayInformation(String title, String content, Bitmap image);
     }
 
     public void getInformation(Bundle extras){
@@ -31,9 +32,11 @@ public class DisplayNoteActivityPresenter {
             note = handler.getNote(id);
             titleString = note.getTitle();
             contentString = note.getContent();
+            Bitmap image = note.getImage();
+            view.displayInformation(titleString, contentString, image);
         }
-        view.displayInformation(titleString, contentString);
     }
+
 
     public int getNoteId() {
         return note.getId();

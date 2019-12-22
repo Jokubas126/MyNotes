@@ -8,7 +8,7 @@
     tools:context=".view.activities.DisplayNoteActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/top_card_view"
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorLightBackground">
@@ -25,7 +25,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_alignParentStart="true"
                 android:background="@null"
-                android:src="@android:drawable/ic_menu_revert" />
+                android:src="@drawable/return_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,25 +41,44 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_card_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Test text"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"/>
-
-    <TextView
-        android:id="@+id/content_text_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_text_view"
-        android:layout_margin="10dp"
-        android:text="Test text"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Test text"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/content_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_text_view"
+                android:layout_margin="10dp"
+                android:text="Test text"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/note_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_below="@id/content_text_view" />
+        </RelativeLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>

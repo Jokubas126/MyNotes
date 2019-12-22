@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Note note = noteList.get(position);
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
+        holder.imageView.setImageBitmap(note.getImage());
     }
 
     public void deleteNotes(){
@@ -80,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TextView titleTextView;
         TextView contentTextView;
-
+        ImageView imageView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             });
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
+            imageView = itemView.findViewById(R.id.note_image_view);
             checkBox = itemView.findViewById(R.id.item_checkbox);
             checkBox.setVisibility(checkboxVisibility);
             checkBox.setChecked(checkboxChecked);

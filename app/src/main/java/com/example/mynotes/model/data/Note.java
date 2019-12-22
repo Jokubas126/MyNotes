@@ -1,5 +1,6 @@
 package com.example.mynotes.model.data;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -8,6 +9,10 @@ public class Note {
     private int id;
     private String title;
     private String content;
+
+
+
+    private Bitmap image;
     private boolean checked;
 
     public Note(){}
@@ -43,6 +48,14 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public boolean isChecked() {

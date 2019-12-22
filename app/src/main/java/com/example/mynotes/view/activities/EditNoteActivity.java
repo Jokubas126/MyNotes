@@ -2,11 +2,15 @@ package com.example.mynotes.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.util.BundleExtraUtil;
@@ -21,6 +25,8 @@ public class EditNoteActivity extends AppCompatActivity
     private ImageButton confirmButton;
     private EditText titleEditText;
     private EditText contentEditText;
+    private ImageView imageView;
+    private ImageButton galleryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +37,21 @@ public class EditNoteActivity extends AppCompatActivity
         titleEditText = findViewById(R.id.title_edit_text);
         contentEditText = findViewById(R.id.content_edit_text);
         confirmButton = findViewById(R.id.confirm_button);
+        galleryButton = findViewById(R.id.gallery_button);
+        imageView = findViewById(R.id.note_image_view);
 
         confirmButton.setOnClickListener(this);
+        galleryButton.setOnClickListener(this);
 
         presenter = new EditNoteActivityPresenter(this, this);
         presenter.getInformation(getIntent().getExtras());
     }
 
     @Override
-    public void displayInformation(String title, String content) {
+    public void displayInformation(String title, String content, Bitmap image) {
         titleEditText.setText(title);
         contentEditText.setText(content);
+        imageView.setImageBitmap(image);
     }
 
     @Override
@@ -58,9 +68,31 @@ public class EditNoteActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        presenter.confirmNote(
-                titleEditText.getText().toString().trim(),
-                contentEditText.getText().toString().trim()
-        );
+        switch (v.getId()){
+            case R.id.confirm_button:
+                presenter.confirmNote(
+                        titleEditText.getText().toString().trim(),
+                        contentEditText.getText().toString().trim()
+                );
+                break;
+
+            case R.id.gallery_button:
+                startActivityForResult(
+                        presenter.getIntentForImage(),
+                        presenter.getRequestCodeForImage()
+                );
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //
+        if (requestCode == presenter.getRequestCodeForImage() && resultCode == Activity.RESULT_OK){
+            presenter.loadImage(this, data);
+            presenter.loadNote();
+        }
     }
 }

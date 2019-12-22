@@ -10,7 +10,7 @@
     tools:context=".view.activities.EditNoteActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/top_card_view"
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorLightBackground">
@@ -36,37 +36,70 @@
                 android:layout_alignParentEnd="true"
                 android:background="@null"
                 android:src="@drawable/confirm_icon" />
-
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/title_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/top_card_view"
-        android:backgroundTint="@color/colorEditTextUnderLine"
-        android:hint="@string/title_edit_text_hint"
-        android:textColorHint="@color/colorHintText"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"/>
-
-    <EditText
-        android:id="@+id/content_edit_text"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_edit_text"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/colorEditTextUnderLine"
-        android:hint="@string/content_edit_text_hint"
-        android:textColorHint="@color/colorHintText"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:layout_above="@id/bottom_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/title_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/colorEditTextUnderLine"
+                android:hint="@string/title_edit_text_hint"
+                android:textColorHint="@color/colorHintText"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"/>
+
+            <EditText
+                android:id="@+id/content_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_edit_text"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorEditTextUnderLine"
+                android:hint="@string/content_edit_text_hint"
+                android:textColorHint="@color/colorHintText"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/note_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_below="@id/content_edit_text" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        app:cardBackgroundColor="@color/colorLightBackground" >
+
+        <ImageButton
+            android:id="@+id/gallery_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@drawable/gallery_icon"/>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
