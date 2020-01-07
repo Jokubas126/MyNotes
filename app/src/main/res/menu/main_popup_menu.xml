@@ -2,10 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/select_notes_button"
-        android:title="@string/popup_select_notes" />
-
-    <item
         android:id="@+id/select_all_notes_button"
         android:title="@string/popup_select_all_notes" />
 

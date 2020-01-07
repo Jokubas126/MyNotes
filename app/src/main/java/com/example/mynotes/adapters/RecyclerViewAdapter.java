@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Note> noteList;
     private NoteListActivityPresenter presenter;
     private CheckBox checkBox;
-    private static int checkboxVisibility = View.GONE;
+    //private static int checkboxVisibility = View.GONE;
     private static boolean checkboxChecked = false;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
@@ -56,14 +56,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public void changeCheckboxVisibility(int id){
+    /*public void changeCheckboxVisibility(int id){
         if (checkBox.getVisibility() == View.VISIBLE && id == R.id.select_notes_button){
             checkboxChecked = false;
             checkboxVisibility = View.GONE;
         } else{
             checkboxVisibility = View.VISIBLE;
         }
-    }
+    }*/
 
     public void setAllNotesChecked(){
         for (Note note : noteList){
@@ -99,7 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             contentTextView = itemView.findViewById(R.id.content_text);
             imageView = itemView.findViewById(R.id.note_image_view);
             checkBox = itemView.findViewById(R.id.item_checkbox);
-            checkBox.setVisibility(checkboxVisibility);
+            //checkBox.setVisibility(checkboxVisibility);
             checkBox.setChecked(checkboxChecked);
             checkBox.setOnClickListener(this);
         }

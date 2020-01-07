@@ -47,9 +47,12 @@
                 android:id="@+id/note_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toStartOf="@id/item_checkbox"
+                android:layout_marginEnd="40dp"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/capture"/>
 
             <CheckBox
                 android:id="@+id/item_checkbox"
@@ -57,8 +60,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
-                android:checked="false"/>
+                android:checked="false"
+                android:visibility="visible" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

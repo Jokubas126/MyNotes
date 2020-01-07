@@ -107,13 +107,12 @@ public class NoteListActivity extends AppCompatActivity
                 presenter.loadAllNotes(); // for updating the list
                 return true;
 
-            case R.id.select_notes_button:
+            /*case R.id.select_notes_button:
                 viewAdapter.changeCheckboxVisibility(R.id.select_notes_button);
                 presenter.loadAllNotes();
-                return true;
+                return true;*/
 
             case R.id.select_all_notes_button:
-                viewAdapter.changeCheckboxVisibility(R.id.select_all_notes_button);
                 viewAdapter.setAllNotesChecked();
                 presenter.loadAllNotes();
                 return true;
