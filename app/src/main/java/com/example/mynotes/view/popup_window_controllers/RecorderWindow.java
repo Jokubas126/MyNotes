@@ -1,7 +1,9 @@
 package com.example.mynotes.view.popup_window_controllers;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -11,7 +13,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.mynotes.R;
 import com.example.mynotes.presenters.EditNoteActivityPresenter;
 
-public class RecorderWindow implements View.OnClickListener {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class RecorderWindow implements View.OnClickListener, View.OnTouchListener {
 
     Context context;
     View popupView;
@@ -34,19 +39,14 @@ public class RecorderWindow implements View.OnClickListener {
         recordButton = popupView.findViewById(R.id.record_button);
         layout = popupView.findViewById(R.id.recorder_background);
         cardView = popupView.findViewById(R.id.recorder_card_view);
-        recordButton.setOnClickListener(this);
+        recordButton.setOnTouchListener(this);
         layout.setOnClickListener(this);
         cardView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        //Log.d("RecorderWindow", "onClick: CLICKED");
         switch (v.getId()){
-            case R.id.record_button:
-                Log.d("RecorderWindow", "onClick: BUTTON");
-                break;
-
             case R.id.recorder_background:
                 presenter.dismissPopupWindow();
                 break;
@@ -63,5 +63,45 @@ public class RecorderWindow implements View.OnClickListener {
 
     public void setPopupView(View popupView) {
         this.popupView = popupView;
+    }
+
+    public void setPresenter(EditNoteActivityPresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    private static boolean hold = false;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+
+                if(!hold){
+                    hold = true;
+                    new RecordTask().execute();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                Log.d("Recorder", "STOPPED");
+                hold = false;
+
+        }
+        return true;
+    }
+
+    private static class RecordTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            while (hold) {
+                record();
+            }
+            return null;
+        }
+
+        private void record(){
+            Log.d("Recorder", "recording...");
+        }
     }
 }
