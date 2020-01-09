@@ -1,15 +1,20 @@
 package com.example.mynotes.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.example.mynotes.R;
@@ -27,6 +32,7 @@ public class EditNoteActivity extends AppCompatActivity
     private EditText contentEditText;
     private ImageView imageView;
     private ImageButton galleryButton;
+    private ImageButton recorderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +42,16 @@ public class EditNoteActivity extends AppCompatActivity
 
         titleEditText = findViewById(R.id.title_edit_text);
         contentEditText = findViewById(R.id.content_edit_text);
+
         confirmButton = findViewById(R.id.confirm_button);
         galleryButton = findViewById(R.id.gallery_button);
+        recorderButton = findViewById(R.id.recorder_button);
+
         imageView = findViewById(R.id.note_image_view);
 
         confirmButton.setOnClickListener(this);
         galleryButton.setOnClickListener(this);
+        recorderButton.setOnClickListener(this);
 
         presenter = new EditNoteActivityPresenter(this, this);
         presenter.getInformation(getIntent().getExtras());
@@ -81,6 +91,10 @@ public class EditNoteActivity extends AppCompatActivity
                         presenter.getIntentForImage(),
                         presenter.getRequestCodeForImage()
                 );
+                break;
+
+            case R.id.recorder_button:
+                presenter.loadRecorder(this);
                 break;
         }
     }

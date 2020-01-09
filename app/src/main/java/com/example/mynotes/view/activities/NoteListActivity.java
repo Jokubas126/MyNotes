@@ -95,6 +95,7 @@ public class NoteListActivity extends AppCompatActivity
         popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.main_popup_menu, popup.getMenu());
+        new StyleSetup(this, getSupportActionBar());
         popup.show();
     }
 

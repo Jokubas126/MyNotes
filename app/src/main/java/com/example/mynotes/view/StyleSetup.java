@@ -16,10 +16,6 @@ public class StyleSetup {
     private void setup(AppCompatActivity activity, ActionBar actionBar){
         try {
             actionBar.hide();
-            View decorView = activity.getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-            activity.getActionBar().hide();
             activity.setTheme(R.style.AppTheme);
         } catch (Exception e){ System.out.println("No action bar found to hide"); }
     }

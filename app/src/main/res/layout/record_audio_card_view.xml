@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:id="@+id/recorder_background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recorder_card_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top"
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="@color/colorItem">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_card_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline__card_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_card_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_card_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <ImageButton
+                android:id="@+id/record_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:background="@null"
+                android:src="@drawable/red_record"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_card_bottom"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline__card_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_card_left"
+                app:layout_constraintTop_toTopOf="@+id/guideline_card_top" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:text="Record"
+                app:layout_constraintEnd_toStartOf="@+id/guideline__card_right"
+                app:layout_constraintStart_toStartOf="@+id/guideline_card_left"
+                app:layout_constraintTop_toTopOf="@+id/guideline_card_bottom" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

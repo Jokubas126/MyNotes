@@ -1,5 +1,6 @@
 package com.example.mynotes.presenters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,11 +12,18 @@ import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
@@ -23,6 +31,7 @@ import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.handlers.FileHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.model.util.FileHandlerUtil;
+import com.example.mynotes.view.popup_window_controllers.RecorderWindow;
 
 import java.io.InputStream;
 
@@ -35,11 +44,15 @@ public class EditNoteActivityPresenter {
     private Note currentNote;
     private int noteIndex;
 
+    private PopupWindow popupWindow;
+
     public EditNoteActivityPresenter(Context context, EditNoteActivityView view) {
         this.view = view;
         dbHandler = new DBHandler(context);
         fileHandler = new FileHandler();
     }
+
+
 
     public interface EditNoteActivityView{
         void displayInformation(String title, String content, Bitmap image);
@@ -104,5 +117,30 @@ public class EditNoteActivityPresenter {
                 Log.d("EditNotePresenter", "loadImage: " + "loading image failed");
             }
         }
+    }
+
+    public Intent getIntentForRecording(){ return fileHandler.getIntentForRecording();}
+
+    public void loadRecorder(Context context){
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.record_audio_card_view, null);
+
+        // create the popup window
+         popupWindow = new PopupWindow(
+            popupView,
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            true);
+
+        // show the popup window
+        popupWindow.showAtLocation(new RelativeLayout(context), Gravity.CENTER, 0, 0);
+
+        new RecorderWindow(context, popupView, this);
+    }
+
+    public void dismissPopupWindow(){
+        if(popupWindow != null)
+            popupWindow.dismiss();
     }
 }
