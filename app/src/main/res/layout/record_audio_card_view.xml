@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null"
+    android:background="#85000000"
     android:id="@+id/recorder_background">
 
     <androidx.constraintlayout.widget.Guideline
@@ -43,6 +43,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toTopOf="@+id/guideline_top"
         app:cardCornerRadius="25dp"
+        android:elevation="20dp"
         app:cardBackgroundColor="@color/colorItem">
 
         <androidx.constraintlayout.widget.ConstraintLayout
