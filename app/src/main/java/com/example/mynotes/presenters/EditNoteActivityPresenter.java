@@ -21,7 +21,7 @@ import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.handlers.FileHandler;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.model.util.FileHandlerUtil;
-import com.example.mynotes.view.popup_window_controllers.RecorderWindow;
+import com.example.mynotes.view.popup_window.RecorderWindow;
 
 import java.io.InputStream;
 
@@ -108,8 +108,6 @@ public class EditNoteActivityPresenter {
             }
         }
     }
-
-    public Intent getIntentForRecording(){ return fileHandler.getIntentForRecording();}
 
     public void loadRecorder(Context context){
         // inflate the layout of the popup window
