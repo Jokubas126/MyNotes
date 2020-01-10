@@ -42,8 +42,6 @@ public class EditNoteActivityPresenter {
         fileHandler = new FileHandler();
     }
 
-
-
     public interface EditNoteActivityView{
         void displayInformation(String title, String content, Bitmap image);
         void goToDisplayActivity(int id);

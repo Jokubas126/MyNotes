@@ -75,8 +75,6 @@ public class RecordTask extends AsyncTask<Void, Void, Void> {
             recorder.release();
             recorder = null;
         }
-
-        startPlaying();
     }
 
     //------------PLAYER TASKS------------------
@@ -93,7 +91,9 @@ public class RecordTask extends AsyncTask<Void, Void, Void> {
     }
 
     public void stopPlaying(){
-        player.release();
-        player = null;
+        if(player != null){
+            player.release();
+            player = null;
+        }
     }
 }
