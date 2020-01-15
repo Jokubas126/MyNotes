@@ -1,4 +1,4 @@
-package com.example.mynotes.view.cards;
+package com.example.mynotes.view.fragments;
 
 import android.content.Context;
 import android.view.View;
@@ -9,13 +9,13 @@ import androidx.cardview.widget.CardView;
 import com.example.mynotes.R;
 import com.example.mynotes.presenters.tasks.PlayAudioTask;
 
-public class AudioPlayerCard implements View.OnClickListener {
+public class AudioCardFragment implements View.OnClickListener {
 
     private Context context;
     private CardView parentView;
     private String filePath;
 
-    public AudioPlayerCard(Context context, CardView parentView, String audioFilePath) {
+    public AudioCardFragment(Context context, CardView parentView, String audioFilePath) {
         this.context = context;
         this.parentView = parentView;
         this.filePath = audioFilePath;

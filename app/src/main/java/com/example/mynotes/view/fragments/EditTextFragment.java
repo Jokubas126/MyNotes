@@ -14,7 +14,7 @@ import com.example.mynotes.R;
 
 public class EditTextFragment extends Fragment {
 
-    TextView noteTextView;
+    private TextView noteTextView;
     private String text;
 
     public EditTextFragment(){}

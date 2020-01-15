@@ -1,6 +1,8 @@
 package com.example.mynotes.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mynotes.R;
+import com.example.mynotes.view.activities.EditNoteActivity;
 
-public class DisplayTextFragment extends Fragment {
+public class DisplayTextFragment extends Fragment implements View.OnClickListener {
 
     private String titleString;
     private String contentString;
@@ -46,6 +49,11 @@ public class DisplayTextFragment extends Fragment {
         TextView titleView = view.findViewById(R.id.title_text_view);
         TextView contentView = view.findViewById(R.id.content_text_view);
 
+        view.setOnClickListener(this);
+        titleView.setOnClickListener(this);
+        contentView.setOnClickListener(this);
+
+
         if(titleString != null){
             titleView.setText(titleString);
         }
@@ -56,11 +64,16 @@ public class DisplayTextFragment extends Fragment {
         return view;
     }
 
-    public String getTitleString() {
-        return titleString;
-    }
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.display_note_text_fragment:
+            case R.id.content_text_view:
+            case R.id.title_text_view:
+                Log.d("DisplayTextFragment", "onClick: go to edit note activity");
+                Intent intent = new Intent(getActivity(), EditNoteActivity.class);
 
-    public String getContentString() {
-        return contentString;
+                break;
+        }
     }
 }

@@ -6,7 +6,7 @@
     android:background="@color/colorBackground"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:id="@+id/note_image"
+    android:id="@+id/note_image_fragment"
     tools:context=".view.activities.EditNoteActivity">
 
         <ImageView
