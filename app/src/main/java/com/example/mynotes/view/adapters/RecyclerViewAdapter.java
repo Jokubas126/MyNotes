@@ -1,4 +1,4 @@
-package com.example.mynotes.adapters;
+package com.example.mynotes.view.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
+import com.example.mynotes.model.util.ConversionUtil;
 import com.example.mynotes.presenters.NoteListActivityPresenter;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -24,7 +26,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Note> noteList;
     private NoteListActivityPresenter presenter;
     private CheckBox checkBox;
-    //private static int checkboxVisibility = View.GONE;
     private static boolean checkboxChecked = false;
 
     public RecyclerViewAdapter(Context context, List<Note> noteList, NoteListActivityPresenter presenter) {
@@ -46,7 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Note note = noteList.get(position);
         holder.titleTextView.setText(note.getTitle());
         holder.contentTextView.setText(note.getContent());
-        holder.imageView.setImageBitmap(note.getImage());
+        holder.imageView.setImageBitmap(
+                ConversionUtil.stringUriToBitmap(context, note.getImageUriString())
+        );
     }
 
     public void deleteNotes(){
@@ -55,15 +58,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 presenter.deleteNote(note.getId());
         }
     }
-
-    /*public void changeCheckboxVisibility(int id){
-        if (checkBox.getVisibility() == View.VISIBLE && id == R.id.select_notes_button){
-            checkboxChecked = false;
-            checkboxVisibility = View.GONE;
-        } else{
-            checkboxVisibility = View.VISIBLE;
-        }
-    }*/
 
     public void setAllNotesChecked(){
         for (Note note : noteList){
@@ -80,9 +74,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView titleTextView;
-        TextView contentTextView;
-        ImageView imageView;
+        private TextView titleTextView;
+        private TextView contentTextView;
+        private ImageView imageView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,7 +93,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             contentTextView = itemView.findViewById(R.id.content_text);
             imageView = itemView.findViewById(R.id.note_image_view);
             checkBox = itemView.findViewById(R.id.item_checkbox);
-            //checkBox.setVisibility(checkboxVisibility);
             checkBox.setChecked(checkboxChecked);
             checkBox.setOnClickListener(this);
         }

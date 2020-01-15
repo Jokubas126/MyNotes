@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.mynotes.model.handlers.DBHandler;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -14,7 +16,7 @@ import static android.media.MediaRecorder.AudioEncoder.AAC_ELD;
 import static android.media.MediaRecorder.AudioSource.MIC;
 import static android.media.MediaRecorder.OutputFormat.THREE_GPP;
 
-public class RecordTask extends AsyncTask<Void, Void, Void> {
+public class RecordAudioTask extends AsyncTask<Void, Void, Void> {
 
     private MediaRecorder recorder;
     private MediaPlayer player;
@@ -34,7 +36,7 @@ public class RecordTask extends AsyncTask<Void, Void, Void> {
     }
 
     public void setupRecorder(Context context){
-        file = new File(context.getCacheDir(), "raw");
+        file = new File(context.getCacheDir(), "recording");
 
         recorder = new MediaRecorder();
         recorder.setAudioSource(MIC);
@@ -95,5 +97,13 @@ public class RecordTask extends AsyncTask<Void, Void, Void> {
             player.release();
             player = null;
         }
+    }
+
+    //--------------SAVING------------------------
+
+    public File getFile(){
+        if (file != null){
+            return file;
+        } else return null;
     }
 }

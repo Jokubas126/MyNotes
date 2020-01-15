@@ -8,12 +8,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.util.BundleExtraUtil;
@@ -25,12 +23,7 @@ public class EditNoteActivity extends AppCompatActivity
 
     private EditNoteActivityPresenter presenter;
 
-    private ImageButton confirmButton;
     private EditText titleEditText;
-    private EditText contentEditText;
-    private ImageView imageView;
-    private ImageButton galleryButton;
-    private ImageButton recorderButton;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
@@ -44,27 +37,22 @@ public class EditNoteActivity extends AppCompatActivity
         new StyleSetup(this, getSupportActionBar());
 
         titleEditText = findViewById(R.id.title_edit_text);
-        contentEditText = findViewById(R.id.content_edit_text);
 
-        confirmButton = findViewById(R.id.confirm_button);
-        galleryButton = findViewById(R.id.gallery_button);
-        recorderButton = findViewById(R.id.recorder_button);
-
-        imageView = findViewById(R.id.note_image_view);
+        ImageButton confirmButton = findViewById(R.id.confirm_button);
+        ImageButton galleryButton = findViewById(R.id.gallery_button);
+        ImageButton recorderButton = findViewById(R.id.recorder_button);
 
         confirmButton.setOnClickListener(this);
         galleryButton.setOnClickListener(this);
         recorderButton.setOnClickListener(this);
 
         presenter = new EditNoteActivityPresenter(this, this);
-        presenter.getInformation(getIntent().getExtras());
+        presenter.getInformation(this, getIntent().getExtras());
     }
 
     @Override
-    public void displayInformation(String title, String content, Bitmap image) {
+    public void displayInformation(String title) {
         titleEditText.setText(title);
-        contentEditText.setText(content);
-        imageView.setImageBitmap(image);
     }
 
     @Override
@@ -83,13 +71,11 @@ public class EditNoteActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.confirm_button:
-                presenter.confirmNote(
-                        titleEditText.getText().toString().trim(),
-                        contentEditText.getText().toString().trim()
-                );
+                presenter.confirmNote(titleEditText.getText().toString().trim());
                 break;
 
             case R.id.gallery_button:
+                presenter.saveNoteState(titleEditText.getText().toString().trim());
                 startActivityForResult(
                         presenter.getIntentForImage(),
                         presenter.getRequestCodeForImage()
@@ -106,10 +92,8 @@ public class EditNoteActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                break;
+        if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
+            permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
         }
         if (!permissionToRecordAccepted ) finish();
     }
@@ -120,8 +104,15 @@ public class EditNoteActivity extends AppCompatActivity
 
         //getting an image selected from the gallery shown in the note
         if (requestCode == presenter.getRequestCodeForImage() && resultCode == Activity.RESULT_OK){
-            presenter.loadImage(this, data);
-            presenter.loadNote();
+            presenter.loadImage(data);
+            getContentResolver().takePersistableUriPermission(data.getData(), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            presenter.loadNote(this);
         }
+    }
+
+    @Override
+    public void showRecording() {
+        //RelativeLayout parentLayout = (RelativeLayout) findViewById(R.id.edit_note_relative_layout);
+        //getLayoutInflater().inflate(R.layout.audio_card_view, parentLayout);
     }
 }

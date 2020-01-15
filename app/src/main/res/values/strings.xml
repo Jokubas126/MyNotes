@@ -9,4 +9,6 @@
     <string name="popup_select_all_notes">Select all</string>
     <string name="popup_delete_notes">Delete selected</string>
 
+    <string name="default_title">title1</string>
+
 </resources>

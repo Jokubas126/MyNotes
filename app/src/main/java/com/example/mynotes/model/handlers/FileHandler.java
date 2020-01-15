@@ -6,7 +6,7 @@ import android.provider.MediaStore;
 public class FileHandler{
 
     public Intent getIntentForImage(){
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent getIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         getIntent.setType("image/*");
 
         Intent pickIntent = new Intent(

@@ -28,7 +28,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 + DBUtil.KEY_ID + " INTEGER PRIMARY KEY,"
                 + DBUtil.KEY_TITLE + " TEXT,"
                 + DBUtil.KEY_TEXT + " TEXT,"
-                + DBUtil.KEY_IMAGE + " BLOB,"
+                + DBUtil.KEY_IMAGE_PATH + " TEXT,"
+                + DBUtil.KEY_AUDIO_FILE_PATH + " TEXT,"
                 + DBUtil.KEY_CHECKED + " INTEGER DEFAULT 0" + ")";
         db.execSQL(CREATE_NOTE_TABLE);
     }
@@ -48,8 +49,8 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DBUtil.KEY_TITLE, note.getTitle());
         values.put(DBUtil.KEY_TEXT, note.getContent());
-        if (note.getImage() != null)
-            values.put(DBUtil.KEY_IMAGE, DBUtil.getBytes(note.getImage()));
+        values.put(DBUtil.KEY_IMAGE_PATH, note.getImageUriString());
+        values.put(DBUtil.KEY_AUDIO_FILE_PATH, note.getAudioFilePath());
 
         db.insert(DBUtil.TABLE_NAME, null, values);
         Log.d(TAG, "addNote: note added to the database" );
@@ -60,7 +61,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(DBUtil.TABLE_NAME,
-                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT, DBUtil.KEY_IMAGE, DBUtil.KEY_CHECKED},
+                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT, DBUtil.KEY_IMAGE_PATH, DBUtil.KEY_AUDIO_FILE_PATH, DBUtil.KEY_CHECKED},
                 DBUtil.KEY_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
         if (cursor != null)
@@ -69,12 +70,11 @@ public class DBHandler extends SQLiteOpenHelper {
         note.setId(Integer.parseInt(cursor.getString(0)));
         note.setTitle(cursor.getString(1));
         note.setContent(cursor.getString(2));
-        try{
-            note.setImage(DBUtil.getImage(cursor.getBlob(3)));
-        } catch (Exception e){
-            note.setImage(null);
-        }
-        note.setChecked(cursor.getInt(4) == 1);
+        note.setImageUriString(cursor.getString(3));
+        note.setAudioFilePath(cursor.getString(4));
+        note.setChecked(cursor.getInt(5) == 1);
+
+        cursor.close();
         return note;
     }
 
@@ -92,12 +92,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 note.setId(Integer.parseInt(cursor.getString(0)));
                 note.setTitle(cursor.getString(1));
                 note.setContent(cursor.getString(2));
-                if (cursor.getBlob(3) != null)
-                    note.setImage(DBUtil.getImage(cursor.getBlob(3)));
-                note.setChecked(cursor.getInt(4) == 1);
+                note.setImageUriString(cursor.getString(3));
+                note.setAudioFilePath(cursor.getString(4));
+                note.setChecked(cursor.getInt(5) == 1);
                 list.add(note);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 
@@ -107,8 +108,8 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DBUtil.KEY_TITLE, note.getTitle());
         values.put(DBUtil.KEY_TEXT, note.getContent());
-        if (note.getImage() != null)
-            values.put(DBUtil.KEY_IMAGE, DBUtil.getBytes(note.getImage()));
+        values.put(DBUtil.KEY_IMAGE_PATH, note.getImageUriString());
+        values.put(DBUtil.KEY_AUDIO_FILE_PATH, note.getAudioFilePath());
 
         return db.update(DBUtil.TABLE_NAME, values, DBUtil.KEY_ID + "=?",
                 new String[]{String.valueOf(note.getId())});
@@ -124,7 +125,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + DBUtil.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-
-        return cursor.getCount();
+        int number = cursor.getCount();
+        cursor.close();
+        return number;
     }
 }

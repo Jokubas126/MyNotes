@@ -12,9 +12,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mynotes.R;
 import com.example.mynotes.presenters.EditNoteActivityPresenter;
-import com.example.mynotes.presenters.tasks.RecordTask;
+import com.example.mynotes.presenters.tasks.RecordAudioTask;
 
-public class RecorderWindow implements View.OnClickListener, View.OnTouchListener {
+public class RecorderWindow implements View.OnClickListener, View.OnTouchListener{
 
     private Context context;
     private View popupView;
@@ -23,7 +23,7 @@ public class RecorderWindow implements View.OnClickListener, View.OnTouchListene
     // for checking if the button to record is still pressed down
     private static boolean hold = false;
 
-    private RecordTask recordTask;
+    private RecordAudioTask recordTask;
 
     public RecorderWindow(Context context, View popupView, EditNoteActivityPresenter presenter){
         this.context = context;
@@ -67,7 +67,10 @@ public class RecorderWindow implements View.OnClickListener, View.OnTouchListene
                 break;
 
             case R.id.save_recording_button:
-
+                if (recordTask != null){
+                    activityPresenter.saveRecording(recordTask.getFile());
+                    Log.d("RecorderWindow", "FILE SAVED WITH NAME: " + recordTask.getFile().getPath());
+                }
                 break;
 
             case R.id.recorder_background:
@@ -93,7 +96,7 @@ public class RecorderWindow implements View.OnClickListener, View.OnTouchListene
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                recordTask = new RecordTask();
+                recordTask = new RecordAudioTask();
                 recordTask.setupRecorder(context);
                 if(!hold){
                     recordTask.setHold(true);

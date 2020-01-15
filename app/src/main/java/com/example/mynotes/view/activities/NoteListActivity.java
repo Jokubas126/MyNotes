@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import com.example.mynotes.R;
-import com.example.mynotes.adapters.RecyclerViewAdapter;
+import com.example.mynotes.view.adapters.RecyclerViewAdapter;
 import com.example.mynotes.model.data.Note;
 import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.presenters.NoteListActivityPresenter;
@@ -30,9 +30,6 @@ public class NoteListActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RecyclerViewAdapter viewAdapter;
 
-    private FloatingActionButton addNoteButton;
-    private ImageButton menuButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,22 +40,12 @@ public class NoteListActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        addNoteButton = findViewById(R.id.add_note_floating_button);
-        menuButton = findViewById(R.id.menu_button);
+        FloatingActionButton addNoteButton = findViewById(R.id.add_note_floating_button);
+        ImageButton menuButton = findViewById(R.id.menu_button);
         addNoteButton.setOnClickListener(this);
         menuButton.setOnClickListener(this);
 
         presenter = new NoteListActivityPresenter(this, this);
-
-        /*presenter.addNote("first title","first text");
-        presenter.addNote("second title","second text");
-        presenter.addNote("third title","third text");
-        presenter.addNote("fourth title","fourth text");
-        presenter.addNote("fifth title","fifth text");
-        presenter.addNote("sixth title","sixth text");
-        presenter.addNote("seventh title","seventh text");
-        presenter.addNote("eight title","eight text");
-        presenter.addNote("ninth title","ninth text");*/
 
         presenter.loadAllNotes();
     }
@@ -66,7 +53,7 @@ public class NoteListActivity extends AppCompatActivity
     @Override
     public void addNoteToListView(final List<Note> noteList) {
         //setup adapter
-        viewAdapter = new RecyclerViewAdapter(this.getApplicationContext(), noteList, presenter);
+        viewAdapter = new RecyclerViewAdapter(this, noteList, presenter);
         recyclerView.setAdapter(viewAdapter);
     }
 
@@ -107,11 +94,6 @@ public class NoteListActivity extends AppCompatActivity
                 viewAdapter.deleteNotes();
                 presenter.loadAllNotes(); // for updating the list
                 return true;
-
-            /*case R.id.select_notes_button:
-                viewAdapter.changeCheckboxVisibility(R.id.select_notes_button);
-                presenter.loadAllNotes();
-                return true;*/
 
             case R.id.select_all_notes_button:
                 viewAdapter.setAllNotesChecked();
