@@ -26,7 +26,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     private CheckBox checkBox;
     private static boolean checkboxChecked = false;
 
-    public NoteListAdapter(Context context, List<Note> noteList, NoteListContract.Presenter presenter) {
+    NoteListAdapter(Context context, List<Note> noteList, NoteListContract.Presenter presenter) {
         this.context = context;
         this.noteList = noteList;
         this.presenter = presenter;

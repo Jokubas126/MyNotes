@@ -52,7 +52,7 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_text, container, false);
+        View view = inflater.inflate(R.layout.fragment_note_edit, container, false);
 
         titleView = view.findViewById(R.id.title_edit_text);
         contentView = view.findViewById(R.id.content_edit_text);

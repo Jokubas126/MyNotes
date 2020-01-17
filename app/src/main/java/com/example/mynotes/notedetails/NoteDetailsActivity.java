@@ -17,7 +17,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_note);
+        setContentView(R.layout.activity_note_display);
         new StyleSetup(this, getSupportActionBar());
 
         ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(),

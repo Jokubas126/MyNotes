@@ -26,6 +26,7 @@ import com.example.mynotes.model.util.FileHandlerUtil;
 import com.example.mynotes.recorder.RecorderWindow;
 
 import java.io.File;
+import java.util.List;
 
 public class NoteEditPresenter implements NoteEditContract.Presenter {
 
@@ -37,6 +38,9 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
     private FileHandler fileHandler;
 
     private Note currentNote;
+    private int noteIndex;
+    private boolean isSaved;
+
 
     private PopupWindow popupWindow;
 
@@ -56,10 +60,12 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
 
     private void getInformation(Bundle extras){
         if (extras != null){
-            int noteIndex = extras.getInt(BundleExtraUtil.KEY_NOTE_ID);
+            isSaved = true;
+            noteIndex = extras.getInt(BundleExtraUtil.KEY_NOTE_ID);
             currentNote = dbHandler.getNote(noteIndex);
             loadNote();
         } else {
+            isSaved = false;
             currentNote = new Note("", "");
             loadNote();
         }
@@ -79,7 +85,13 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
         //no need to pass image or audio recording, because they are already saved in the object currentNote
         currentNote.setTitle(title);
         currentNote.setContent(content);
-        dbHandler.updateNote(currentNote);
+        if (isSaved){
+            dbHandler.updateNote(currentNote);
+            currentNote = dbHandler.getNote(noteIndex);
+        } else {
+            dbHandler.addNote(currentNote);
+            currentNote = dbHandler.getNoteList().get(dbHandler.getNoteList().size() - 1);
+        }
     }
 
     @Override
