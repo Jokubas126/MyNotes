@@ -7,17 +7,18 @@
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/display_note_text_fragment"
-    tools:context=".view.activities.DisplayNoteActivity">
+    tools:context=".notedetails.NoteDetailsActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:text="Test text"
             android:textColor="@android:color/white"
@@ -27,11 +28,17 @@
             android:id="@+id/content_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title_text_view"
             android:layout_margin="10dp"
             android:text="Test text"
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
-    </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/note_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

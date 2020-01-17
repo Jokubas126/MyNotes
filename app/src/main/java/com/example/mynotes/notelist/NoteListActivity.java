@@ -1,8 +1,4 @@
-package com.example.mynotes.view.activities;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.mynotes.notelist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,23 +8,27 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mynotes.R;
-import com.example.mynotes.view.adapters.RecyclerViewAdapter;
 import com.example.mynotes.model.data.Note;
+import com.example.mynotes.noteedit.NoteEditActivity;
 import com.example.mynotes.model.util.BundleExtraUtil;
-import com.example.mynotes.presenters.NoteListActivityPresenter;
-import com.example.mynotes.view.StyleSetup;
+import com.example.mynotes.model.util.StyleSetup;
+import com.example.mynotes.notedetails.NoteDetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class NoteListActivity extends AppCompatActivity
-        implements NoteListActivityPresenter.NoteListActivityView, View.OnClickListener, PopupMenu.OnMenuItemClickListener {
+        implements NoteListContract.View, View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
-    private NoteListActivityPresenter presenter;
+    private NoteListContract.Presenter presenter;
 
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter viewAdapter;
+    private NoteListAdapter viewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,30 +45,31 @@ public class NoteListActivity extends AppCompatActivity
         addNoteButton.setOnClickListener(this);
         menuButton.setOnClickListener(this);
 
-        presenter = new NoteListActivityPresenter(this, this);
-
-        presenter.loadAllNotes();
-    }
-
-    @Override
-    public void addNoteToListView(final List<Note> noteList) {
-        //setup adapter
-        viewAdapter = new RecyclerViewAdapter(this, noteList, presenter);
-        recyclerView.setAdapter(viewAdapter);
+        presenter = new NoteListPresenter(this.getApplicationContext(), this);
     }
 
     @Override
     public void goToDisplayNoteActivity(int id) {
-        Intent intent = new Intent(this, DisplayNoteActivity.class);
+        Intent intent = new Intent(this, NoteDetailsActivity.class);
         intent.putExtra(BundleExtraUtil.KEY_NOTE_ID, id);
         startActivity(intent);
+    }
+
+    @Override
+    public void addNotesToListView(final List<Note> noteList) {
+        //setup adapter
+        viewAdapter = new NoteListAdapter(this, noteList, presenter);
+        recyclerView.setAdapter(viewAdapter);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.add_note_floating_button:
-                startActivity(new Intent(this, EditNoteActivity.class));
+                presenter.addNote("", "");
+                Intent intent = new Intent(this, NoteEditActivity.class);
+                intent.putExtra(BundleExtraUtil.KEY_NOTE_ID, presenter.getNewNoteIndex());
+                startActivity(intent);
                 break;
 
             case R.id.menu_button:
@@ -92,14 +93,19 @@ public class NoteListActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.delete_notes_button:
                 viewAdapter.deleteNotes();
-                presenter.loadAllNotes(); // for updating the list
+                presenter.start(); // for updating the list
                 return true;
 
             case R.id.select_all_notes_button:
                 viewAdapter.setAllNotesChecked();
-                presenter.loadAllNotes();
+                presenter.start();
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void setPresenter(NoteListContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".view.activities.DisplayNoteActivity">
+    tools:context=".notedetails.NoteDetailsActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/top_bar"
@@ -44,7 +44,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/top_bar">
+        android:layout_below="@id/top_bar"
+        android:clickable="true"
+        android:focusable="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,17 +55,13 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/display_note_text_container"
-                android:layout_width="wrap_content"
+                android:id="@+id/display_note_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
-
-            <FrameLayout
-                android:id="@+id/display_note_image_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true" />
 
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

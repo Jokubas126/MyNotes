@@ -1,4 +1,4 @@
-package com.example.mynotes.presenters.tasks;
+package com.example.mynotes.tasks;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -6,8 +6,6 @@ import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
-
-import com.example.mynotes.model.handlers.DBHandler;
 
 import java.io.File;
 import java.io.IOException;

@@ -44,7 +44,7 @@ public class DBHandler extends SQLiteOpenHelper {
     //-----------CRUD-------------//
 
     public void addNote(Note note){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(DBUtil.KEY_TITLE, note.getTitle());
@@ -61,7 +61,8 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(DBUtil.TABLE_NAME,
-                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT, DBUtil.KEY_IMAGE_PATH, DBUtil.KEY_AUDIO_FILE_PATH, DBUtil.KEY_CHECKED},
+                new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT,
+                        DBUtil.KEY_IMAGE_PATH, DBUtil.KEY_AUDIO_FILE_PATH, DBUtil.KEY_CHECKED},
                 DBUtil.KEY_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
         if (cursor != null)

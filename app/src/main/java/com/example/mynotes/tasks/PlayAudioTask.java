@@ -1,4 +1,4 @@
-package com.example.mynotes.presenters.tasks;
+package com.example.mynotes.tasks;
 
 import android.media.MediaPlayer;
 import android.os.AsyncTask;

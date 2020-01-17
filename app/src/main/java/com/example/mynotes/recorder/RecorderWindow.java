@@ -1,4 +1,4 @@
-package com.example.mynotes.view.popup_window;
+package com.example.mynotes.recorder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,21 +11,21 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mynotes.R;
-import com.example.mynotes.presenters.EditNoteActivityPresenter;
-import com.example.mynotes.presenters.tasks.RecordAudioTask;
+import com.example.mynotes.noteedit.NoteEditPresenter;
+import com.example.mynotes.tasks.RecordAudioTask;
 
 public class RecorderWindow implements View.OnClickListener, View.OnTouchListener{
 
     private Context context;
     private View popupView;
-    private EditNoteActivityPresenter activityPresenter;
+    private NoteEditPresenter activityPresenter;
 
     // for checking if the button to record is still pressed down
     private static boolean hold = false;
 
     private RecordAudioTask recordTask;
 
-    public RecorderWindow(Context context, View popupView, EditNoteActivityPresenter presenter){
+    public RecorderWindow(Context context, View popupView, NoteEditPresenter presenter){
         this.context = context;
         this.popupView = popupView;
         this.activityPresenter = presenter;

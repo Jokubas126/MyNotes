@@ -6,7 +6,7 @@ public class DBUtil {
     private DBUtil(){}
 
     //items related to the database
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "notes_db";
     public static final String TABLE_NAME = "notes";
 

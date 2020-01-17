@@ -1,9 +1,7 @@
-package com.example.mynotes.view.fragments;
+package com.example.mynotes.fragments;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +12,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mynotes.R;
+import com.example.mynotes.model.data.Note;
+import com.example.mynotes.model.util.BundleExtraUtil;
 import com.example.mynotes.model.util.ConversionUtil;
+import com.google.gson.Gson;
 
 import java.util.Objects;
 
-public class ImageFragment extends Fragment implements View.OnClickListener {
+public class ImageFragment extends Fragment {
 
-    private ImageView imageView;
     private Bitmap image;
 
     public ImageFragment(){}
@@ -30,10 +30,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("note_image")) {
+        if (bundle != null && bundle.containsKey(BundleExtraUtil.KEY_NOTE_OBJECT)) {
+            String json = bundle.getString(BundleExtraUtil.KEY_NOTE_OBJECT);
             image = ConversionUtil.stringUriToBitmap(
                     Objects.requireNonNull(getActivity()).getApplicationContext(),
-                    bundle.getString("note_image")
+                    new Gson().fromJson(json, Note.class).getImageUriString()
             );
         }
     }
@@ -42,27 +43,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_image, container, false);
-        imageView = view.findViewById(R.id.note_image_view);
-        view.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+        ImageView imageView = view.findViewById(R.id.note_image_view);
         if(image != null){
             imageView.setImageBitmap(image);
         }
         return view;
-    }
-
-    public Bitmap getImage() {
-        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-        return drawable.getBitmap();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.note_image_fragment:
-            case R.id.note_image_view:
-                Log.d("image fragment", "onClick: worked");
-                break;
-        }
     }
 }

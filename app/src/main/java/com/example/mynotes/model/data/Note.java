@@ -1,7 +1,5 @@
 package com.example.mynotes.model.data;
 
-import android.graphics.Bitmap;
-
 public class Note {
 
     private int id;
