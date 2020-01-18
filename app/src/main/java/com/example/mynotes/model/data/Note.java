@@ -1,18 +1,13 @@
 package com.example.mynotes.model.data;
 
-import android.graphics.Bitmap;
-import android.view.View;
-import android.widget.CheckBox;
-
 public class Note {
 
     private int id;
     private String title;
     private String content;
+    private String audioFilePath;
 
-
-
-    private Bitmap image;
+    private String imageUriString;
     private boolean checked;
 
     public Note(){}
@@ -50,12 +45,20 @@ public class Note {
         this.content = content;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public String getImageUriString() {
+        return imageUriString;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setImageUriString(String imageUriString) {
+        this.imageUriString = imageUriString;
+    }
+
+    public String getAudioFilePath() {
+        return audioFilePath;
+    }
+
+    public void setAudioFilePath(String audioFilePath) {
+        this.audioFilePath = audioFilePath;
     }
 
     public boolean isChecked() {

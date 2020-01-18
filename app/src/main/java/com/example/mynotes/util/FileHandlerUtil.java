@@ -1,6 +1,4 @@
-package com.example.mynotes.model.util;
-
-import com.example.mynotes.model.handlers.FileHandler;
+package com.example.mynotes.util;
 
 public class FileHandlerUtil {
     private FileHandlerUtil(){}

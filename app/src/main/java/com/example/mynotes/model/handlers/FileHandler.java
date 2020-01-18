@@ -6,7 +6,7 @@ import android.provider.MediaStore;
 public class FileHandler{
 
     public Intent getIntentForImage(){
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent getIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         getIntent.setType("image/*");
 
         Intent pickIntent = new Intent(
@@ -17,6 +17,10 @@ public class FileHandler{
 
         Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+
+        chooserIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
 
         return chooserIntent;
     }

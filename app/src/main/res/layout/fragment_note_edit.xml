@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/edit_text_fragment"
+    tools:context=".noteedit.NoteEditActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/colorLightBackground">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_centerVertical="true"
+                            android:text="Edit note"
+                            android:textSize="20sp"
+                            android:textColor="@color/colorItemTitleText"/>
+
+                        <ImageButton
+                            android:id="@+id/confirm_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@null"
+                            android:src="@drawable/confirm_icon" />
+                </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_bar"
+            android:layout_above="@id/bottom_bar">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/title_edit_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTint="@color/colorEditTextUnderLine"
+                            android:hint="@string/title_edit_text_hint"
+                            android:textColorHint="@color/colorHintText"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"/>
+
+                        <EditText
+                            android:id="@+id/content_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:backgroundTint="@color/colorEditTextUnderLine"
+                            android:hint="@string/content_edit_text_hint"
+                            android:textColorHint="@color/colorHintText"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:inputType="textMultiLine"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"/>
+
+                        <FrameLayout
+                            android:id="@+id/audio_card_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:id="@+id/note_image_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp" />
+
+                </LinearLayout>
+        </ScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="@color/colorLightBackground" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:id="@+id/recorder_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/gallery_button"
+                            android:layout_marginEnd="50dp"
+                            android:background="@null"
+                            android:src="@drawable/microphone"/>
+
+                        <ImageButton
+                            android:id="@+id/gallery_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerInParent="true"
+                            android:background="@null"
+                            android:src="@drawable/gallery_icon"/>
+
+                </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
