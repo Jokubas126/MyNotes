@@ -14,6 +14,5 @@ interface NoteDetailsContract {
 
     interface Presenter extends BasePresenter{
         int getNoteId();
-        void loadInformation();
     }
 }

@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.BundleExtraUtil;
+import com.example.mynotes.util.BundleExtraUtil;
 import com.example.mynotes.noteedit.NoteEditActivity;
 
 import java.util.Objects;
@@ -36,9 +36,7 @@ public class NoteDetailsFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         activity = Objects.requireNonNull(getActivity());
-        presenter = new NoteDetailsPresenter(activity, this, activity.getIntent().getExtras());
     }
 
     @Nullable
@@ -50,10 +48,10 @@ public class NoteDetailsFragment extends Fragment
         contentView = view.findViewById(R.id.content_text_view);
         imageView = view.findViewById(R.id.note_image_view);
 
-        presenter.loadInformation();
-
         titleView.setOnClickListener(this);
         contentView.setOnClickListener(this);
+
+        presenter = new NoteDetailsPresenter(activity, this, view, activity.getIntent().getExtras());
 
         return view;
     }

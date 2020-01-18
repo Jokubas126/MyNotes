@@ -1,4 +1,4 @@
-package com.example.mynotes.model.util;
+package com.example.mynotes.util;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

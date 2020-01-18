@@ -1,6 +1,5 @@
-package com.example.mynotes.recorder;
+package com.example.mynotes.noteedit;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,28 +10,33 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mynotes.R;
-import com.example.mynotes.noteedit.NoteEditPresenter;
+import com.example.mynotes.tasks.PlayAudioTask;
 import com.example.mynotes.tasks.RecordAudioTask;
 
-public class RecorderWindow implements View.OnClickListener, View.OnTouchListener{
+public class RecorderPopupWindow implements View.OnClickListener, View.OnTouchListener{
 
     private Context context;
     private View popupView;
-    private NoteEditPresenter activityPresenter;
+    private Listener listener;
+
+    private PlayAudioTask playTask;
 
     // for checking if the button to record is still pressed down
     private static boolean hold = false;
 
     private RecordAudioTask recordTask;
 
-    public RecorderWindow(Context context, View popupView, NoteEditPresenter presenter){
+    public RecorderPopupWindow(Context context, View popupView, Listener listener){
         this.context = context;
         this.popupView = popupView;
-        this.activityPresenter = presenter;
+        this.listener = listener;
         setupWindow();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    public interface Listener {
+        void recorderCallBack(String filePath);
+    }
+
     private void setupWindow(){
         ImageButton recordButton = popupView.findViewById(R.id.record_button);
         ImageButton stopButton = popupView.findViewById(R.id.stop_recording_button);
@@ -56,37 +60,35 @@ public class RecorderWindow implements View.OnClickListener, View.OnTouchListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.play_recording_button:
-                if (recordTask != null)
-                    recordTask.startPlaying();
+                if (recordTask != null){
+                    playTask = new PlayAudioTask(recordTask.getFilePath());
+                    playTask.execute();
+                }
                 break;
 
             case R.id.stop_recording_button:
-                if (recordTask != null){
-                    recordTask.stopPlaying();
+                if (playTask != null){
+                    playTask.stopPlaying();
                 }
                 break;
 
             case R.id.save_recording_button:
                 if (recordTask != null){
-                    activityPresenter.saveRecording(recordTask.getFile());
-                    Log.d("RecorderWindow", "FILE SAVED WITH NAME: " + recordTask.getFile().getPath());
+                    listener.recorderCallBack(recordTask.getFilePath());
+                    Log.d("RecorderPopupWindow", "FILE SAVED WITH NAME: " + recordTask.getFilePath());
                 }
                 break;
 
             case R.id.recorder_background:
-                activityPresenter.dismissPopupWindow();
-                if (recordTask != null)
-                    recordTask.stopPlaying();
-                break;
-
-            case R.id.recorder_card_view:
-                //made so when clicked on the card and not the button, it wouldn't dismiss the window
-                Log.d("RecorderWindow", "onClick: RECORDER CARD");
+                listener.recorderCallBack(null);
+                if (playTask != null)
+                    playTask.stopPlaying();
                 break;
 
             case R.id.player_card:
+            case R.id.recorder_card_view:
                 //made so when clicked on the card and not the button, it wouldn't dismiss the window
-                Log.d("RecorderWindow", "onClick: PLAYER CARD");
+                Log.d("RecorderPopupWindow", "onClick: RECORDER CARD");
                 break;
         }
     }

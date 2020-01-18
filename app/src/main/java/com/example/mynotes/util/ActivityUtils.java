@@ -1,4 +1,4 @@
-package com.example.mynotes.model.util;
+package com.example.mynotes.util;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

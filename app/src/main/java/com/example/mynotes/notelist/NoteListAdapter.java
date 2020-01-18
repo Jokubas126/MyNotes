@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
-import com.example.mynotes.model.util.ConversionUtil;
+import com.example.mynotes.util.ConversionUtil;
 
 import java.util.List;
 

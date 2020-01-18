@@ -1,4 +1,4 @@
-package com.example.mynotes.model.util;
+package com.example.mynotes.util;
 
 public class FileHandlerUtil {
     private FileHandlerUtil(){}

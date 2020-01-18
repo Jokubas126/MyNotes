@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.BundleExtraUtil;
+import com.example.mynotes.util.BundleExtraUtil;
 import com.example.mynotes.notedetails.NoteDetailsActivity;
 
 import java.util.Objects;
@@ -65,7 +64,7 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
         recorderButton.setOnClickListener(this);
         confirmButton.setOnClickListener(this);
 
-        presenter = new NoteEditPresenter(activity, this, activity.getIntent().getExtras());
+        presenter = new NoteEditPresenter(activity, this, view, activity.getIntent().getExtras());
 
         return view;
     }
@@ -132,12 +131,6 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
                 presenter.addImage(data);
             }
         }
-    }
-
-    @Override
-    public void showRecording() {
-        RelativeLayout parentLayout = activity.findViewById(R.id.edit_note_container);
-        activity.getLayoutInflater().inflate(R.layout.audio_card_view, parentLayout);
     }
 
     @Override

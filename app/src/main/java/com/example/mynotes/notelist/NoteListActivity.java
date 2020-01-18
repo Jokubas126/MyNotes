@@ -6,8 +6,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.ActivityUtils;
-import com.example.mynotes.model.util.StyleSetup;
+import com.example.mynotes.util.ActivityUtils;
+import com.example.mynotes.util.StyleSetup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NoteListActivity extends AppCompatActivity {

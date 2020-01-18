@@ -46,16 +46,16 @@
             android:layout_below="@id/top_bar"
             android:layout_above="@id/bottom_bar">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                         <EditText
                             android:id="@+id/title_edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal"
                             android:backgroundTint="@color/colorEditTextUnderLine"
                             android:hint="@string/title_edit_text_hint"
                             android:textColorHint="@color/colorHintText"
@@ -66,7 +66,6 @@
                             android:id="@+id/content_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/title_edit_text"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:backgroundTint="@color/colorEditTextUnderLine"
@@ -78,14 +77,18 @@
                             android:textColor="@android:color/white"
                             android:textSize="16sp"/>
 
+                        <FrameLayout
+                            android:id="@+id/audio_card_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
                         <ImageView
                             android:id="@+id/note_image_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/content_edit_text"
                             android:layout_margin="20dp" />
 
-                </RelativeLayout>
+                </LinearLayout>
         </ScrollView>
 
         <androidx.cardview.widget.CardView

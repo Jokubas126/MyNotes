@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.ActivityUtils;
+import com.example.mynotes.util.ActivityUtils;
 import com.example.mynotes.notelist.NoteListActivity;
-import com.example.mynotes.model.util.StyleSetup;
+import com.example.mynotes.util.StyleSetup;
 
 public class NoteDetailsActivity extends AppCompatActivity {
 

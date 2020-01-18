@@ -1,4 +1,4 @@
-package com.example.mynotes.model.util;
+package com.example.mynotes.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

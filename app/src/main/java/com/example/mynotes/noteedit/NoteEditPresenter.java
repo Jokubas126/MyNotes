@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -20,15 +21,12 @@ import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
 import com.example.mynotes.model.handlers.DBHandler;
 import com.example.mynotes.model.handlers.FileHandler;
-import com.example.mynotes.model.util.BundleExtraUtil;
-import com.example.mynotes.model.util.ConversionUtil;
-import com.example.mynotes.model.util.FileHandlerUtil;
-import com.example.mynotes.recorder.RecorderWindow;
+import com.example.mynotes.util.BundleExtraUtil;
+import com.example.mynotes.util.ConversionUtil;
+import com.example.mynotes.util.FileHandlerUtil;
+import com.example.mynotes.sharedviews.AudioCard;
 
-import java.io.File;
-import java.util.List;
-
-public class NoteEditPresenter implements NoteEditContract.Presenter {
+public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPopupWindow.Listener, AudioCard.OnRemoveAudioListener {
 
     private NoteEditContract.View view;
     private Activity activity;
@@ -41,11 +39,14 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
     private int noteIndex;
     private boolean isSaved;
 
+    private View fragmentView;
+    private ViewGroup audioViewGroup;
 
     private PopupWindow popupWindow;
 
-    NoteEditPresenter(Activity activity, NoteEditContract.View view, Bundle bundle) {
+    NoteEditPresenter(Activity activity, NoteEditContract.View view, View fragmentView, Bundle bundle) {
         this.view = view;
+        this.fragmentView = fragmentView;
         this.bundle = bundle;
         this.activity = activity;
         dbHandler = new DBHandler(activity.getApplicationContext());
@@ -74,9 +75,10 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
     private void loadNote(){
         if (currentNote.getImageUriString() != null)
             view.displayInformation(currentNote.getTitle(), currentNote.getContent(), ConversionUtil.stringUriToBitmap(activity, currentNote.getImageUriString()));
+        else view.displayInformation(currentNote.getTitle(), currentNote.getContent(), null);
 
         if(currentNote.getAudioFilePath() != null){
-            view.showRecording();
+            loadPlayer();
         }
     }
 
@@ -142,17 +144,7 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
         // show the popup window
         popupWindow.showAtLocation(new RelativeLayout(context), Gravity.CENTER, 0, 0);
 
-        new RecorderWindow(context, popupView, this);
-    }
-
-    @Override
-    public void saveRecording(File file){
-        currentNote.setAudioFilePath(file.getPath());
-        Log.d("SAVED AUDIO", "saveRecording: PATH IS" + file.getPath());
-        dbHandler.updateNote(currentNote);
-        view.showRecording();
-
-        dismissPopupWindow();
+        new RecorderPopupWindow(context, popupView, this);
     }
 
     @Override
@@ -164,5 +156,32 @@ public class NoteEditPresenter implements NoteEditContract.Presenter {
     @Override
     public int getId() {
         return currentNote.getId();
+    }
+
+    private void loadPlayer(){
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View audioCardView = inflater.inflate(R.layout.card_audio, null);
+        audioViewGroup = fragmentView.findViewById(R.id.audio_card_container);
+        audioViewGroup.addView(audioCardView, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        new AudioCard(fragmentView, currentNote.getAudioFilePath(), this);
+    }
+
+    @Override
+    public void recorderCallBack(String audioFilePath) {
+        if (audioFilePath != null){
+            currentNote.setAudioFilePath(audioFilePath);
+            Log.d("SAVED AUDIO", "saveRecording: PATH IS" + audioFilePath);
+            dbHandler.updateNote(currentNote);
+            loadPlayer();
+        }
+        dismissPopupWindow();
+    }
+
+    @Override
+    public void onAudioRemove() {
+        audioViewGroup.removeAllViews();
+        currentNote.setAudioFilePath(null);
+        dbHandler.updateNote(currentNote);
     }
 }

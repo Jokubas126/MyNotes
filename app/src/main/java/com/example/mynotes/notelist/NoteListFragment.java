@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.BundleExtraUtil;
+import com.example.mynotes.util.BundleExtraUtil;
 import com.example.mynotes.notedetails.NoteDetailsActivity;
 import com.example.mynotes.noteedit.NoteEditActivity;
 

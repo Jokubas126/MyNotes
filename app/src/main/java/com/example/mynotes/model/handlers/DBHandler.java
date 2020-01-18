@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.mynotes.R;
 import com.example.mynotes.model.data.Note;
-import com.example.mynotes.model.util.DBUtil;
+import com.example.mynotes.util.DBUtil;
 
 import java.util.ArrayList;
 import java.util.List;

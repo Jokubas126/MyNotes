@@ -1,7 +1,6 @@
 package com.example.mynotes.tasks;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,15 +16,11 @@ import static android.media.MediaRecorder.OutputFormat.THREE_GPP;
 public class RecordAudioTask extends AsyncTask<Void, Void, Void> {
 
     private MediaRecorder recorder;
-    private MediaPlayer player;
 
     private File file;
 
     private boolean hold;
 
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
 
     @Override
     protected Void doInBackground(Void... arg0) {
@@ -55,6 +50,10 @@ public class RecordAudioTask extends AsyncTask<Void, Void, Void> {
         }
     }
 
+    public void setHold(boolean hold) {
+        this.hold = hold;
+    }
+
     //-----------RECORDER TASKS------------------
 
     private void startRecording(boolean hold){
@@ -71,37 +70,17 @@ public class RecordAudioTask extends AsyncTask<Void, Void, Void> {
 
     public void stopRecording(){
         if (recorder != null){
-            //recorder.stop();
+            recorder.stop();
             recorder.release();
             recorder = null;
         }
     }
 
-    //------------PLAYER TASKS------------------
-
-    public void startPlaying(){
-        player = new MediaPlayer();
-        try {
-            player.setDataSource(String.valueOf(file));
-            player.prepare();
-            player.start();
-        } catch (IOException e) {
-            Log.e("PLAYER", "prepare() failed");
-        }
-    }
-
-    public void stopPlaying(){
-        if(player != null){
-            player.release();
-            player = null;
-        }
-    }
-
     //--------------SAVING------------------------
 
-    public File getFile(){
+    public String getFilePath(){
         if (file != null){
-            return file;
+            return file.getPath();
         } else return null;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,32 +36,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@id/recording_title"
-                android:layout_alignParentEnd="true">
+                android:layout_toStartOf="@id/remove_recording_button">
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_card_left"
+                    android:id="@+id/guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.33" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_card_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.66" />
+                    app:layout_constraintGuide_percent="0.5" />
 
                 <ImageButton
                     android:id="@+id/play_recording_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="2dp"
                     android:background="@null"
                     android:src="@drawable/play"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_card_right"
-                    app:layout_constraintStart_toStartOf="@+id/guideline_card_left"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
@@ -71,25 +64,23 @@
                     android:background="@null"
                     android:src="@drawable/stop"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_card_left"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/delete_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:background="@null"
-                    android:src="@drawable/delete"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline_card_right"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <ImageButton
+                android:id="@+id/remove_recording_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:src="@drawable/delete" />
 
         </RelativeLayout>
 

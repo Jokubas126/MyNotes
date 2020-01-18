@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mynotes.R;
-import com.example.mynotes.model.util.ActivityUtils;
-import com.example.mynotes.model.util.StyleSetup;
+import com.example.mynotes.util.ActivityUtils;
+import com.example.mynotes.util.StyleSetup;
 
 
 public class NoteEditActivity extends AppCompatActivity {
