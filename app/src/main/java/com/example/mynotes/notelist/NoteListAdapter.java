@@ -47,6 +47,10 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         holder.contentTextView.setText(note.getContent());
         if (note.getImageUriString() != null)
             holder.imageView.setImageBitmap(ConversionUtil.stringUriToBitmap(context, note.getImageUriString()));
+
+        if(note.getAudioFilePath() != null)
+            holder.soundWaves.setVisibility(View.VISIBLE);
+        else holder.soundWaves.setVisibility(View.GONE);
     }
 
     void deleteNotes(){
@@ -74,6 +78,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         private TextView titleTextView;
         private TextView contentTextView;
         private ImageView imageView;
+        private ImageView soundWaves;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +94,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
             titleTextView = itemView.findViewById(R.id.title_text);
             contentTextView = itemView.findViewById(R.id.content_text);
             imageView = itemView.findViewById(R.id.note_image_view);
+            soundWaves = itemView.findViewById(R.id.sound_wave);
             checkBox = itemView.findViewById(R.id.item_checkbox);
             checkBox.setChecked(checkboxChecked);
             checkBox.setOnClickListener(this);
