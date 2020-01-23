@@ -133,6 +133,14 @@ public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPo
     }
 
     @Override
+    public void removeImage() {
+        if(currentNote.getImageUriString() != null){
+            currentNote.setImageUriString(null);
+            loadNote();
+        }
+    }
+
+    @Override
     public void loadRecorder(Context context){
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -186,6 +194,7 @@ public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPo
     public void onAudioRemove() {
         audioViewGroup.removeAllViews();
         currentNote.setAudioFilePath(null);
+        currentNote.setAudioFileTitle(null);
         dbHandler.updateNote(currentNote);
     }
 }

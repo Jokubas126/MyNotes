@@ -33,6 +33,7 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
     private EditText titleView;
     private EditText contentView;
     private ImageView imageView;
+    private ImageButton removeImageButton;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
@@ -57,9 +58,11 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
         contentView = view.findViewById(R.id.content_edit_text);
         imageView = view.findViewById(R.id.note_image_view);
 
+        removeImageButton = view.findViewById(R.id.remove_image_button);
         ImageButton confirmButton = view.findViewById(R.id.confirm_button);
         ImageButton galleryButton = view.findViewById(R.id.gallery_button);
         ImageButton recorderButton = view.findViewById(R.id.recorder_button);
+        removeImageButton.setOnClickListener(this);
         galleryButton.setOnClickListener(this);
         recorderButton.setOnClickListener(this);
         confirmButton.setOnClickListener(this);
@@ -72,6 +75,10 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.remove_image_button:
+                presenter.removeImage();
+                break;
+
             case R.id.gallery_button:
                 presenter.saveNoteState(
                         titleView.getText().toString().trim(),
@@ -100,6 +107,9 @@ public class NoteEditFragment extends Fragment implements NoteEditContract.View,
         titleView.setText(title);
         contentView.setText(content);
         imageView.setImageBitmap(image);
+        if(image != null)
+            removeImageButton.setVisibility(View.VISIBLE);
+        else removeImageButton.setVisibility(View.GONE);
     }
 
     @Override

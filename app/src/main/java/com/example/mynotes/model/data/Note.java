@@ -67,7 +67,9 @@ public class Note {
     }
 
     public void setAudioFileTitle(String audioFileTitle) {
-        this.audioFileTitle = audioFileTitle;
+        if (audioFileTitle != null)
+            this.audioFileTitle = audioFileTitle;
+        else this.audioFileTitle = "default";
     }
 
     public boolean isChecked() {

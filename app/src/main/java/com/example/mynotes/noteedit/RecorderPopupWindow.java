@@ -118,6 +118,8 @@ public class RecorderPopupWindow implements View.OnClickListener, View.OnTouchLi
                 recordTask.setHold(false);
                 v.setScaleX(1.0f);
                 v.setScaleY(1.0f);
+
+
         }
         return true;
     }

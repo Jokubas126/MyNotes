@@ -69,11 +69,18 @@ public class RecordAudioTask extends AsyncTask<Void, Void, Void> {
     }
 
     public void stopRecording(){
-        if (recorder != null){
-            recorder.stop();
+        try{
+            if (recorder != null){
+                recorder.stop();
+                recorder.release();
+                recorder = null;
+            }
+        } catch (Exception e){
+            this.cancel(true);
             recorder.release();
             recorder = null;
         }
+
     }
 
     //--------------SAVING------------------------

@@ -25,6 +25,8 @@ interface NoteEditContract {
 
         void addImage(Intent data);
 
+        void removeImage();
+
         void loadRecorder(Context context);
 
         void dismissPopupWindow();
