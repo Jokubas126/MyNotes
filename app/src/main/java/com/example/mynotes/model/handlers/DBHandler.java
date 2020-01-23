@@ -30,6 +30,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 + DBUtil.KEY_TEXT + " TEXT,"
                 + DBUtil.KEY_IMAGE_PATH + " TEXT,"
                 + DBUtil.KEY_AUDIO_FILE_PATH + " TEXT,"
+                + DBUtil.KEY_AUDIO_FILE_TITLE + " TEXT,"
                 + DBUtil.KEY_CHECKED + " INTEGER DEFAULT 0" + ")";
         db.execSQL(CREATE_NOTE_TABLE);
     }
@@ -51,6 +52,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(DBUtil.KEY_TEXT, note.getContent());
         values.put(DBUtil.KEY_IMAGE_PATH, note.getImageUriString());
         values.put(DBUtil.KEY_AUDIO_FILE_PATH, note.getAudioFilePath());
+        values.put(DBUtil.KEY_AUDIO_FILE_TITLE, note.getAudioFileTitle());
 
         db.insert(DBUtil.TABLE_NAME, null, values);
         Log.d(TAG, "addNote: note added to the database" );
@@ -62,7 +64,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(DBUtil.TABLE_NAME,
                 new String[]{DBUtil.KEY_ID, DBUtil.KEY_TITLE, DBUtil.KEY_TEXT,
-                        DBUtil.KEY_IMAGE_PATH, DBUtil.KEY_AUDIO_FILE_PATH, DBUtil.KEY_CHECKED},
+                        DBUtil.KEY_IMAGE_PATH, DBUtil.KEY_AUDIO_FILE_PATH,
+                        DBUtil.KEY_AUDIO_FILE_TITLE, DBUtil.KEY_CHECKED},
                 DBUtil.KEY_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
         if (cursor != null)
@@ -73,7 +76,8 @@ public class DBHandler extends SQLiteOpenHelper {
         note.setContent(cursor.getString(2));
         note.setImageUriString(cursor.getString(3));
         note.setAudioFilePath(cursor.getString(4));
-        note.setChecked(cursor.getInt(5) == 1);
+        note.setAudioFileTitle(cursor.getString(5));
+        note.setChecked(cursor.getInt(6) == 1);
 
         cursor.close();
         return note;
@@ -95,7 +99,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 note.setContent(cursor.getString(2));
                 note.setImageUriString(cursor.getString(3));
                 note.setAudioFilePath(cursor.getString(4));
-                note.setChecked(cursor.getInt(5) == 1);
+                note.setAudioFileTitle(cursor.getString(5));
+                note.setChecked(cursor.getInt(6) == 1);
                 list.add(note);
             } while (cursor.moveToNext());
         }
@@ -111,6 +116,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(DBUtil.KEY_TEXT, note.getContent());
         values.put(DBUtil.KEY_IMAGE_PATH, note.getImageUriString());
         values.put(DBUtil.KEY_AUDIO_FILE_PATH, note.getAudioFilePath());
+        values.put(DBUtil.KEY_AUDIO_FILE_TITLE, note.getAudioFileTitle());
 
         return db.update(DBUtil.TABLE_NAME, values, DBUtil.KEY_ID + "=?",
                 new String[]{String.valueOf(note.getId())});

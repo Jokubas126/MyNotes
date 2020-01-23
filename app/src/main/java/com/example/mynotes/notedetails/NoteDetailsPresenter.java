@@ -65,7 +65,7 @@ public class NoteDetailsPresenter implements NoteDetailsContract.Presenter{
         ViewGroup audioViewGroup = fragmentView.findViewById(R.id.audio_card_container);
         audioViewGroup.addView(audioCardView, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        new AudioCard(fragmentView, currentNote.getAudioFilePath());
+        new AudioCard(fragmentView, currentNote.getAudioFilePath(), currentNote.getAudioFileTitle());
     }
 
     public int getNoteId() {

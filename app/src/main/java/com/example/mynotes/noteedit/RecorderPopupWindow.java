@@ -1,5 +1,6 @@
 package com.example.mynotes.noteedit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,6 +38,7 @@ public class RecorderPopupWindow implements View.OnClickListener, View.OnTouchLi
         void recorderCallBack(String filePath);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupWindow(){
         ImageButton recordButton = popupView.findViewById(R.id.record_button);
         ImageButton stopButton = popupView.findViewById(R.id.stop_recording_button);
@@ -93,6 +95,7 @@ public class RecorderPopupWindow implements View.OnClickListener, View.OnTouchLi
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 

@@ -37,11 +37,12 @@ public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPo
 
     private Note currentNote;
     private int noteIndex;
-    private boolean isSaved;
+    private boolean isSaved; // says if it is already saved note to be updated or a new note to be made
 
     private View fragmentView;
     private ViewGroup audioViewGroup;
 
+    private AudioCard audioCard;
     private PopupWindow popupWindow;
 
     NoteEditPresenter(Activity activity, NoteEditContract.View view, View fragmentView, Bundle bundle) {
@@ -84,9 +85,12 @@ public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPo
 
     @Override
     public void saveNoteState(String title, String content){
-        //no need to pass image or audio recording, because they are already saved in the object currentNote
+        //no need to pass image or audio recording, because they are already saved when loaded
         currentNote.setTitle(title);
         currentNote.setContent(content);
+        if(audioCard != null){
+            currentNote.setAudioFileTitle(audioCard.getTitle());
+        }
         if (isSaved){
             dbHandler.updateNote(currentNote);
             currentNote = dbHandler.getNote(noteIndex);
@@ -164,7 +168,7 @@ public class NoteEditPresenter implements NoteEditContract.Presenter, RecorderPo
         audioViewGroup = fragmentView.findViewById(R.id.audio_card_container);
         audioViewGroup.addView(audioCardView, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        new AudioCard(fragmentView, currentNote.getAudioFilePath(), this);
+        audioCard = new AudioCard(fragmentView, currentNote.getAudioFilePath(), currentNote.getAudioFileTitle(), this);
     }
 
     @Override

@@ -17,24 +17,28 @@ public class AudioCard implements View.OnClickListener {
     private OnRemoveAudioListener onRemoveListener;
     private View fragmentView;
     private String filePath;
+    private String title;
 
     private PlayAudioTask playTask;
 
-    public AudioCard(View fragmentView, String audioFilePath) {
+    public AudioCard(View fragmentView, String audioFilePath, String title) {
         this.fragmentView = fragmentView;
         this.filePath = audioFilePath;
+        this.title = title;
         setupCard(false);
     }
 
-    public AudioCard(View fragmentView, String audioFilePath, OnRemoveAudioListener listener) {
+    public AudioCard(View fragmentView, String audioFilePath, String title, OnRemoveAudioListener listener) {
         this.fragmentView = fragmentView;
         this.filePath = audioFilePath;
+        this.title = title;
         this.onRemoveListener = listener;
         setupCard(true);
     }
 
     private void setupCard(boolean isEditable){
         titleText = fragmentView.findViewById(R.id.recording_title);
+        titleText.setText(title);
 
         ImageButton playButton = fragmentView.findViewById(R.id.play_recording_button);
         ImageButton stopButton = fragmentView.findViewById(R.id.stop_recording_button);
@@ -67,5 +71,9 @@ public class AudioCard implements View.OnClickListener {
                 onRemoveListener.onAudioRemove();
                 break;
         }
+    }
+
+    public String getTitle() {
+        return titleText.getText().toString().trim();
     }
 }

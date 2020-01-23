@@ -6,6 +6,7 @@ public class Note {
     private String title;
     private String content;
     private String audioFilePath;
+    private String audioFileTitle = "default";
 
     private String imageUriString;
     private boolean checked;
@@ -59,6 +60,14 @@ public class Note {
 
     public void setAudioFilePath(String audioFilePath) {
         this.audioFilePath = audioFilePath;
+    }
+
+    public String getAudioFileTitle() {
+        return audioFileTitle;
+    }
+
+    public void setAudioFileTitle(String audioFileTitle) {
+        this.audioFileTitle = audioFileTitle;
     }
 
     public boolean isChecked() {
