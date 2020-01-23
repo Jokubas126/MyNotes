@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,10 +45,13 @@ public class NoteDetailsFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_details, container, false);
 
+        FrameLayout layout = view.findViewById(R.id.display_note_text_fragment);
+
         titleView = view.findViewById(R.id.title_text_view);
         contentView = view.findViewById(R.id.content_text_view);
         imageView = view.findViewById(R.id.note_image_view);
 
+        layout.setOnClickListener(this);
         titleView.setOnClickListener(this);
         contentView.setOnClickListener(this);
 
@@ -61,6 +65,7 @@ public class NoteDetailsFragment extends Fragment
         switch(v.getId()){
             case R.id.content_text_view:
             case R.id.title_text_view:
+            case R.id.display_note_text_fragment:
                 goToEditNoteActivity();
                 break;
         }
